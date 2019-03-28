@@ -58,18 +58,13 @@ class GroupManagement extends Component {
         this.state = {
             modal: false,
             value: '',
-            groups: [],
+            forums: [],
             primary: false,
-            group_name: "",
-            max_member: "",
-            min_member: "",
+            forum_name: "",
+            description: "",
             dropdownOpen: false
         };
-        this.togglePrimary = this.togglePrimary.bind(this);
-        this.handleGroupName = this.handleGroupName.bind(this);
-        this.handleMaxMembers = this.handleMaxMembers.bind(this);
-        this.handleMinMembers = this.handleMinMembers.bind(this);
-        this.saveData = this.saveData.bind(this);
+
     }
     togglePrimary() {
         this.setState({
@@ -77,59 +72,45 @@ class GroupManagement extends Component {
         });
     }
 
-    handleGroupName(e) {
-        this.setState({ group_name: e.target.value });
+    handleForumName = (e) => {
+        this.setState({ forum_name: e.target.value });
     }
-
-    handleMaxMembers(e) {
-        this.setState({ max_member: e.target.value });
+    handleDescription = (e) => {
+        this.setState({ description: e.target.value });
     }
-    handleMinMembers(e) {
-        this.setState({ min_member: e.target.value });
-    }
-    saveData(e) {
+    handleSubmit = (e) => {
         e.preventDefault();
-        const data = {
-            group_name: this.state.group_name,
-            max_member: this.state.max_member,
-            min_member: this.state.min_member,
-            organization_id: localStorage.getItem('organization_id'),
+        let forum = {
+            forum_name: this.state.forum_name,
+            description: this.state.description
         }
-        let token = localStorage.getItem('token');
-        const headers = {
-            //'Content-Type': 'application/json',
-            'Authorization': 'Bearer ' + token
-        }
-
-        let url ='/add_group';
-        API.post(url, data, { headers: headers }).then((response) => {
-            console.log(response.data);
+        API.post('forums/', forum).then((response) => {
+            // console.log(response);
+            console.log('👉 Returned data:', response);
             this.setState({
-                group_name: '',
-                max_member: '',
-                min_member: '',
+                forum_name: '',
+                description: ''
+
             });
-            this.getGroups();
         }).catch((error) => {
-            console.log(error.request);
+            //console.log(error.request);
+            console.log(`😱 Axios request failed: ${error}`);
         });
 
     }
 
     componentDidMount() {
-        this.getGroups();
+        this.getForums();
     }
-    getGroups() {
+    getForums() {
         let token = localStorage.getItem('token');
         let organization_id = localStorage.getItem('organization_id');
-        let uri = '/get_groups/' + organization_id;
-        API.get(uri, {
-            headers: { 'Authorization': 'Bearer ' + token }
-        }).then(response => {
+        let uri = 'index/';
+        API.get(uri).then(response => {
             this.setState({
-                groups: response.data
+                forums: response.data
             });
-            console.log(this.state.groups);
+            console.log(this.state.forums);
         }).catch((error) => {
             console.log(error)
         });
@@ -171,53 +152,39 @@ class GroupManagement extends Component {
                 </Row>
                 <Modal isOpen={this.state.primary} toggle={this.togglePrimary}
                     className={'modal-primary ' + this.props.className}>
-                    <ModalHeader toggle={this.togglePrimary}>Add Group</ModalHeader>
+                    <ModalHeader toggle={this.togglePrimary}>Add Forum</ModalHeader>
                     <ModalBody>
                         <FormGroup row>
                             <Col md="3">
-                                <Label htmlFor="text-input">Group Name</Label>
+                                <Label htmlFor="text-input">Forum Name</Label>
                             </Col>
                             <Col xs="12" md="9">
                                 <Input
-                                    onChange={this.handleGroupName}
-                                    value={this.state.group_name}
+                                    onChange={this.handleForumName}
+                                    value={this.state.forum_name}
                                     type="text" id="text-input"
-                                    name="ledger" placeholder="Group Name"
+                                    name="ledger" placeholder="Forum Name"
                                     required />
                                 {/*<FormText color="muted">This is a help text</FormText>*/}
                             </Col>
                         </FormGroup>
                         <FormGroup row>
                             <Col md="3">
-                                <Label htmlFor="text-input">Max Members</Label>
+                                <Label htmlFor="textarea-input">Description</Label>
                             </Col>
                             <Col xs="12" md="9">
                                 <Input
-                                    onChange={this.handleMaxMembers}
-                                    value={this.state.max_member}
-                                    type="number" id="text-input"
-                                    name="ledger" placeholder="Max Members"
-                                    required />
-                                {/*<FormText color="muted">This is a help text</FormText>*/}
-                            </Col>
-                        </FormGroup>
-                        <FormGroup row>
-                            <Col md="3">
-                                <Label htmlFor="text-input">Min Members</Label>
-                            </Col>
-                            <Col xs="12" md="9">
-                                <Input
-                                    onChange={this.handleMinMembers}
-                                    value={this.state.min_member}
-                                    type="number" id="text-input"
-                                    name="ledger" placeholder="Min Members"
-                                    required />
-                                {/*<FormText color="muted">This is a help text</FormText>*/}
+                                    onChange={this.description}
+                                    value={this.state.forum_name}
+                                    type="textarea"
+                                    name="textarea-input"
+                                    id="textarea-input" rows="9"
+                                    placeholder="Description..." />
                             </Col>
                         </FormGroup>
                     </ModalBody>
                     <ModalFooter>
-                        <Button color="primary" onClick={this.saveData}>Save</Button>{' '}
+                        <Button color="primary" onClick={this.handleSubmit}>Save</Button>{' '}
                         <Button color="secondary" onClick={this.togglePrimary}>Cancel</Button>
                     </ModalFooter>
                 </Modal>
