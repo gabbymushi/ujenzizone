@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
-import { Link } from 'react-router-dom';
+import { Link,Redirect } from 'react-router-dom';
+//import {withRouter,HashRouter, Route, Switch,Redirect} from 'react-router-dom';
 import API from '../../utils/API'
 import { Button, Card, CardBody, CardGroup, Col, Container, Form, Input, InputGroup, InputGroupAddon, InputGroupText, Row } from 'reactstrap';
 
@@ -30,12 +31,41 @@ class Login extends Component {
       //     user_name: '',
       //     password: ''
       // });
+      const token = response.data.token;
+                // const userType = response.data.user.user_type;
+                //const userInfo = response.data.user;
+                // const userInfo = response.data.user_info
+                localStorage.setItem('token',token);
+                // localStorage.setItem('user_type',userType);
+                // localStorage.setItem('userInfo',JSON.stringify(userInfo));
+                // console.log('emp',localStorage.getItem('userInfo'))
+                // console.log('raw',userInfo)
+                // if(userType=="member"){
+                //     const group_id = response.data.user.group_id;
+                //     localStorage.setItem('group_id',group_id);
+                // }else if(userType=="manager"){
+                //     const organization_id = response.data.user_info.organization_id;
+                //     localStorage.setItem('organization_id',organization_id);
+                // }
+                //console.log('mmmmh',JSON.parse(localStorage.getItem('userInfo')).email);
+                // console.log('mimi sasaa',localStorage.getItem('user_type'));
+                //let path = `/`;
+                //this.props.history.push(path);
+                this.setState({ redirectToReferrer: true })
     }).catch((error) => {
       //console.log(error.request);
       console.log(`😱 Axios request failed: ${error}`);
     });
   }
   render() {
+    const { from } = this.props.location.state || { from: { pathname: '/' } }
+    const { redirectToReferrer } = this.state;
+
+    if (redirectToReferrer) {
+        return (
+            <Redirect isLogin={redirectToReferrer}  to={from} />
+        )
+    }
     return (
       <div className="app flex-row align-items-center">
         <Container>

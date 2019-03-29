@@ -43,18 +43,18 @@ class Register extends Component {
       email: this.state.email,
       password: this.state.password
     }
-     API.post('members/', member).then((response) => {
+     API.post('auth/register', member).then((response) => {
      // console.log(response);
      console.log('👉 Returned data:', response);
-      this.setState({
-          first_name: '',
-          user_name: '',
-          last_name: '',
-          gender: '',
-          email: '',
-          password: '',
+      // this.setState({
+      //     first_name: '',
+      //     user_name: '',
+      //     last_name: '',
+      //     gender: '',
+      //     email: '',
+      //     password: '',
       
-      });
+      // });
   }).catch((error) => {
       //console.log(error.request);
       console.log(`😱 Axios request failed: ${error}`);
