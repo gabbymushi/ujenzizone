@@ -5,7 +5,7 @@ import { Dropdown, DropdownToggle, DropdownMenu, DropdownItem, Button, Badge, Ca
 //import SystemParameters from '../../SystemParameters';
 import API from '../../utils/API';
 //let apiBaseUrl = SystemParameters.apiBaseUrl;
-class GroupRow extends Component {
+class ForumRow extends Component {
     constructor(props) {
         super(props);
         this.state = {
@@ -19,9 +19,10 @@ class GroupRow extends Component {
         }));
     }
     render() {
-        const group = this.props.group;
+        const forum = this.props.forum;
+        const index = this.props.key;
         // const groupLink = `#/registerUser/${group.group_id}`;
-        const groupLink = `#/registerUser/${group.group_id}`;
+        const groupLink = `#/registerUser/${forum._id}`;
         const getBadge = (status) => {
             return status === 'Active' ? 'success' :
                 status === 'Inactive' ? 'secondary' :
@@ -30,10 +31,10 @@ class GroupRow extends Component {
                             'primary'
         }
         return (
-            <tr key={group.group_id.toString()}>
-                <th scope="row"><a href={groupLink}>{group.group_id}</a></th>
-                <td><a href={groupLink}>{group.group_name}</a></td>
-                <td>30</td>
+            <tr key={forum._id.toString()}>
+                <th scope="row"><a href={groupLink}>{index + 1}</a></th>
+                <td>{forum.forum_name}</td>
+                <td>{forum.description}</td>
                 {/* <td>{group.created_at}</td>
                 <td><Badge href={groupLink} color={getBadge('Active')}>Active</Badge></td> */}
                 <td>
@@ -48,11 +49,11 @@ class GroupRow extends Component {
                             <DropdownItem>Add Member</DropdownItem>
                         </DropdownMenu>
                     </Dropdown></td>
-            </tr >
+            </tr>
         )
     }
 }
-class GroupManagement extends Component {
+class Forums extends Component {
     constructor(props) {
         super(props);
         this.state = {
@@ -64,7 +65,7 @@ class GroupManagement extends Component {
             description: "",
             dropdownOpen: false
         };
-
+        this.togglePrimary = this.togglePrimary.bind(this);
     }
     togglePrimary() {
         this.setState({
@@ -92,6 +93,7 @@ class GroupManagement extends Component {
                 description: ''
 
             });
+            this.getForums();
         }).catch((error) => {
             //console.log(error.request);
             console.log(`😱 Axios request failed: ${error}`);
@@ -103,9 +105,8 @@ class GroupManagement extends Component {
         this.getForums();
     }
     getForums() {
-        let token = localStorage.getItem('token');
-        let organization_id = localStorage.getItem('organization_id');
-        let uri = 'index/';
+
+        let uri = 'forums/';
         API.get(uri).then(response => {
             this.setState({
                 forums: response.data
@@ -131,21 +132,25 @@ class GroupManagement extends Component {
                                 </div>
                             </CardHeader>
                             <CardBody>
-                                <Table responsive hover>
-                                    <thead>
-                                        <tr>
-                                            <th scope="col">SN</th>
-                                            <th scope="col">Forum Name</th>
-                                            <th scope="col">Description</th>
-                                            <th scope="col">Action</th>
-                                        </tr>
-                                    </thead>
-                                    <tbody>
-                                        {this.state.groups.map((group, index) =>
-                                            <GroupRow key={index} group={group} />
-                                        )}
-                                    </tbody>
-                                </Table>
+                                {this.state.forums.length > 1 ?
+                                    <div>
+                                        <Table responsive hover>
+                                            <thead>
+                                                <tr>
+                                                    <th scope="col">SN</th>
+                                                    <th scope="col">Forum Name</th>
+                                                    <th scope="col">Description</th>
+                                                    <th scope="col">Action</th>
+                                                </tr>
+                                            </thead>
+                                            <tbody>
+                                                {this.state.forums.map((forum, index) =>
+                                                    <ForumRow key={index} forum={forum} />
+                                                )}
+                                            </tbody>
+                                        </Table>
+                                    </div> : <p>No forum found</p>
+                                }
                             </CardBody>
                         </Card>
                     </Col>
@@ -174,8 +179,8 @@ class GroupManagement extends Component {
                             </Col>
                             <Col xs="12" md="9">
                                 <Input
-                                    onChange={this.description}
-                                    value={this.state.forum_name}
+                                    onChange={this.handleDescription}
+                                    value={this.state.description}
                                     type="textarea"
                                     name="textarea-input"
                                     id="textarea-input" rows="9"
@@ -194,4 +199,4 @@ class GroupManagement extends Component {
     }
 }
 
-export default GroupManagement;
+export default Forums;
