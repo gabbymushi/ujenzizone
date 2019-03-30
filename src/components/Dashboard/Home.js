@@ -45,7 +45,7 @@ class Home extends Component {
               </CardBody>
             </Card>
           </Col> */}
-          <Col sm="12" xl="9">
+          <Col sm="12" xl="3">
             <Card>
               <CardHeader>
                 <i className="fa fa-align-justify"></i><strong>Zilizo kiki</strong>
@@ -61,7 +61,7 @@ class Home extends Component {
               </CardBody>
             </Card>
           </Col>
-        </Row>
+        {/* </Row> */}
         {/* <Row>
           <Col sm="12" xl="6">
             <Card>
@@ -135,7 +135,7 @@ class Home extends Component {
             </Card>
           </Col>
         </Row> */}
-        <Row>
+        {/* <Row> */}
           <Col sm="12" xl="9">
             <Card>
               <CardHeader>
