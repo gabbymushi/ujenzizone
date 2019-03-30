@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { Badge, Card, CardBody, CardHeader, Col, ListGroup, ListGroupItem, ListGroupItemHeading, ListGroupItemText, Row, TabContent, TabPane } from 'reactstrap';
-
+import API from '../../utils/API';
 class Home extends Component {
 
   constructor(props) {
@@ -8,6 +8,7 @@ class Home extends Component {
 
     this.toggle = this.toggle.bind(this);
     this.state = {
+      forums:[],
       activeTab: 1
     };
   }
@@ -19,7 +20,21 @@ class Home extends Component {
       });
     }
   }
+  componentDidMount() {
+    this.getForums();
+}
+getForums() {
 
+    let uri = 'forums/';
+    API.get(uri).then(response => {
+        this.setState({
+            forums: response.data
+        });
+        console.log(this.state.forums);
+    }).catch((error) => {
+        console.log(error)
+    });
+}
   render() {
     return (
       <div className="animated fadeIn">
@@ -61,81 +76,6 @@ class Home extends Component {
               </CardBody>
             </Card>
           </Col>
-        {/* </Row> */}
-        {/* <Row>
-          <Col sm="12" xl="6">
-            <Card>
-              <CardHeader>
-                <i className="fa fa-align-justify"></i><strong>List Group</strong>
-                <small> disabled items</small>
-              </CardHeader>
-              <CardBody>
-                <ListGroup>
-                  <ListGroupItem disabled tag="a" href="#">Cras justo odio</ListGroupItem>
-                  <ListGroupItem tag="a" href="#">Dapibus ac facilisis in</ListGroupItem>
-                  <ListGroupItem disabled tag="a" href="#">Morbi leo risus</ListGroupItem>
-                  <ListGroupItem tag="a" href="#">Porta ac consectetur ac</ListGroupItem>
-                  <ListGroupItem tag="a" href="#">Vestibulum at eros</ListGroupItem>
-                </ListGroup>
-              </CardBody>
-            </Card>
-          </Col>
-          <Col sm="12" xl="6">
-            <Card>
-              <CardHeader>
-                <i className="fa fa-align-justify"></i><strong>List Group</strong>
-                <small> contextual classes</small>
-              </CardHeader>
-              <CardBody>
-                <ListGroup>
-                  <ListGroupItem action color="success">Cras justo odio</ListGroupItem>
-                  <ListGroupItem action color="info">Dapibus ac facilisis in</ListGroupItem>
-                  <ListGroupItem action color="warning">Morbi leo risus</ListGroupItem>
-                  <ListGroupItem action color="danger">Porta ac consectetur ac</ListGroupItem>
-                </ListGroup>
-              </CardBody>
-            </Card>
-          </Col>
-        </Row> */}
-        {/* <Row>
-          <Col sm="12" xl="6">
-            <Card>
-              <CardHeader>
-                <i className="fa fa-align-justify"></i><strong>List Group</strong>
-                <small> anchors</small>
-              </CardHeader>
-              <CardBody>
-                <p>Be sure to <strong>not use the standard <code>.btn</code> classes here</strong>.</p>
-                <ListGroup>
-                  <ListGroupItem active tag="a" href="#" action>Cras justo odio</ListGroupItem>
-                  <ListGroupItem tag="a" href="#" action>Dapibus ac facilisis in</ListGroupItem>
-                  <ListGroupItem tag="a" href="#" action>Morbi leo risus</ListGroupItem>
-                  <ListGroupItem tag="a" href="#" action>Porta ac consectetur ac</ListGroupItem>
-                  <ListGroupItem disabled tag="a" href="#" action>Vestibulum at eros</ListGroupItem>
-                </ListGroup>
-                <p />
-              </CardBody>
-            </Card>
-          </Col>
-          <Col sm="12" xl="6">
-            <Card>
-              <CardHeader>
-                <i className="fa fa-align-justify"></i><strong>List Group</strong>
-                <small> buttons</small>
-              </CardHeader>
-              <CardBody>
-                <ListGroup>
-                  <ListGroupItem active tag="button" action>Cras justo odio</ListGroupItem>
-                  <ListGroupItem tag="button" action>Dapibus ac facilisis in</ListGroupItem>
-                  <ListGroupItem tag="button" action>Morbi leo risus</ListGroupItem>
-                  <ListGroupItem tag="button" action>Porta ac consectetur ac</ListGroupItem>
-                  <ListGroupItem disabled tag="button" action>Vestibulum at eros</ListGroupItem>
-                </ListGroup>
-              </CardBody>
-            </Card>
-          </Col>
-        </Row> */}
-        {/* <Row> */}
           <Col sm="12" xl="9">
             <Card>
               <CardHeader>
@@ -144,24 +84,16 @@ class Home extends Component {
               </CardHeader>
               <CardBody>
                 <ListGroup>
+                {this.state.forums.map((forum, index) =>
+                                                    // <ForumRow key={index} forum={forum} />
+                                                
                   <ListGroupItem action>
-                    <ListGroupItemHeading>Ujenzi wa nyumnba</ListGroupItemHeading>
+                    <ListGroupItemHeading>{forum.forum_name}</ListGroupItemHeading>
                     <ListGroupItemText>
-                      Donec id elit non mi porta gravida at eget metus. Maecenas sed diam eget risus varius blandit.
+                    {forum.description}
                     </ListGroupItemText>
                   </ListGroupItem>
-                  <ListGroupItem action>
-                    <ListGroupItemHeading>Material ya ujenzi</ListGroupItemHeading>
-                    <ListGroupItemText>
-                      Donec id elit non mi porta gravida at eget metus. Maecenas sed diam eget risus varius blandit.
-                    </ListGroupItemText>
-                  </ListGroupItem>
-                  <ListGroupItem action>
-                    <ListGroupItemHeading>Uchimbaji wa vyoo</ListGroupItemHeading>
-                    <ListGroupItemText>
-                      Donec id elit non mi porta gravida at eget metus. Maecenas sed diam eget risus varius blandit.
-                    </ListGroupItemText>
-                  </ListGroupItem>
+                  )}
                 </ListGroup>
               </CardBody>
             </Card>
