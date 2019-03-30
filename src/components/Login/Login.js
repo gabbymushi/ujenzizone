@@ -114,7 +114,7 @@ class Login extends Component {
                     </Form>
                   </CardBody>
                 </Card>
-                <Card className="text-white bg-primary py-5 d-md-down-none" style={{ width: '44%' }}>
+                <Card className="text-white bg-primary py-5 " >
                   <CardBody className="text-center">
                     <div>
                       <h2>Sign up to Ujenzi Zone</h2>
