@@ -85,7 +85,7 @@ getForums() {
               <CardBody>
                 <ListGroup>
                 {this.state.forums.map((forum, index) =>
-                  <ListGroupItem tag="a" href={`#/threads/${forum._id}`} action key={index}>
+                  <ListGroupItem tag="a" href={`#/forums/${forum._id}`} action key={index}>
                     <ListGroupItemHeading>{forum.forum_name}</ListGroupItemHeading>
                     <ListGroupItemText>
                     {forum.description}
