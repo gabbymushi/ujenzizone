@@ -151,6 +151,7 @@ class Home extends Component {
                             <Col xs="12" md="9">
                             <Input
                                  onChange={this.handleUpload}
+                                 value={this.state.image}
                                   
                                     required />
                                 {/*<FormText color="muted">This is a help text</FormText>*/}
