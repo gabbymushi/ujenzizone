@@ -144,6 +144,21 @@ class Home extends Component {
                                     placeholder="Write your topic..." />
                             </Col>
                         </FormGroup>
+                        <FormGroup row>
+                            <Col md="3">
+                                <Label htmlFor="text-input">Upload</Label>
+                            </Col>
+                            <Col xs="12" md="9">
+                            <Input
+                                 onChange={this.handleUpload}
+                                 value={this.state.image}
+                                 type="file" id="text-input"
+                                 name="image" 
+                                  
+                                    required />
+                                {/*<FormText color="muted">This is a help text</FormText>*/}
+                            </Col>
+                        </FormGroup>
                     </ModalBody>
                     <ModalFooter>
                         <Button color="primary" onClick={this.handleSubmit}>Save</Button>{' '}

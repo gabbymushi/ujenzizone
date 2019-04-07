@@ -120,7 +120,8 @@ getComments() {
           <Col xs="12" xl="8">
             <Card>
               <CardHeader>
-                <i className="fa fa-align-justify"></i><strong>Carousel</strong>
+                <i className="fa fa-align-justify"></i>
+                <strong>Carousel</strong>
               </CardHeader>
               <CardBody>
                 <Carousel activeIndex={activeIndex} next={this.next} previous={this.previous}>
