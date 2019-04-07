@@ -101,11 +101,11 @@ class Home extends Component {
                         {this.state.threads.map((thread, index) =>
                             <Card key={index}>
                                 <CardHeader>
-                                    <i className="fa fa-comment"></i><strong><a href="#/login">{thread.title}.</a></strong>
+                                    <i className="fa fa-comment"></i><strong><a href={`#/threads/${this.props.match.params.id}/${thread._id}`}>{thread.title}.</a></strong>
                                     <small> </small>
                                 </CardHeader>
                                 <CardBody>
-                                    {thread.body} <a href="#/login"> more..</a>
+                                    {thread.body} <a href={`#/threads/${this.props.match.params.id}/${thread._id}`}> more..</a>
                                 </CardBody>
                             </Card>
                         )
