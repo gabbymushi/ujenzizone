@@ -145,7 +145,10 @@ class Home extends Component {
                             </Col>
                         </FormGroup>
                         <FormGroup row>
-                      
+                            <Col md="3">
+                                <Label htmlFor="text-input">Upload</Label>
+                            </Col>
+                        
                         </FormGroup>
                     </ModalBody>
                     <ModalFooter>
