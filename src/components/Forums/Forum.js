@@ -153,7 +153,8 @@ class Home extends Component {
                                  onChange={this.handleUpload}
                                  value={this.state.image}
                                  type="file" id="text-input"
-                                 
+                                 name="image" 
+                                  
                                     required />
                                 {/*<FormText color="muted">This is a help text</FormText>*/}
                             </Col>
