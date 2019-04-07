@@ -121,4 +121,4 @@ class Thread extends Component {
   }
 }
 
-//export default Carousels;
+export default Thread;
