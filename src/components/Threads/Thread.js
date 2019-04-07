@@ -58,6 +58,18 @@ class Thread extends Component {
   componentDidMount() {
   
 }
+getComments() {
+
+    let uri = 'comments/';
+    API.get(uri).then(response => {
+        this.setState({
+            forums: response.data
+        });
+        console.log(this.state.forums);
+    }).catch((error) => {
+        console.log(error)
+    });
+}
   render() {
     const { activeIndex } = this.state;
 
