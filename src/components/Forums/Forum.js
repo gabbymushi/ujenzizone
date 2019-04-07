@@ -105,7 +105,7 @@ class Home extends Component {
                                     <small> </small>
                                 </CardHeader>
                                 <CardBody>
-                                    {thread.body} <a href="#/login"> more..</a>
+                                    {thread.body} <a href={`#/threads/${this.props.match.params.id}/${thread._id}`}> more..</a>
                                 </CardBody>
                             </Card>
                         )
