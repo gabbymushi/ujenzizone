@@ -150,7 +150,8 @@ class Home extends Component {
                             </Col>
                             <Col xs="12" md="9">
                             <Input
-                                   
+                                 onChange={this.handleUpload}
+                                  
                                     required />
                                 {/*<FormText color="muted">This is a help text</FormText>*/}
                             </Col>
