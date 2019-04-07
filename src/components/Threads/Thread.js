@@ -129,11 +129,12 @@ getComments() {
                   <CarouselControl direction="prev" directionText="Previous" onClickHandler={this.previous} />
                   <CarouselControl direction="next" directionText="Next" onClickHandler={this.next} />
                 </Carousel>
-               <p> mjuu uuuuu uuuuuuuuuuu uuuuuuuuuuuuuuuuuuuu uuuuuuuuuuuuuuuuu 
-               mjuu uuuuu uuuuuuuuuuu uuuuuuuuuuuuuuuuuuuu uuuuuuuuuuuuuuuuu 
-               mjuu uuuuu uuuuuuuuuuu uuuuuuuuuuuuuuuuuuuu uuuuuuuuuuuuuuuuu 
-               mjuu uuuuu uuuuuuuuuuu uuuuuuuuuuuuuuuuuuuu uuuuuuuuuuuuuuuuu 
-               </p>
+               
+               {this.state.comments.length > 0 ?
+               <p>
+                 {this.state.comments[0].comment}
+               </p>: <p>No comments yet</p>
+               }
               </CardBody>
             </Card>
           </Col>
