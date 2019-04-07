@@ -149,7 +149,9 @@ class Home extends Component {
                                 <Label htmlFor="text-input">Upload</Label>
                             </Col>
                             <Col xs="12" md="9">
-                               
+                            <Input
+                                   
+                                    required />
                                 {/*<FormText color="muted">This is a help text</FormText>*/}
                             </Col>
                         </FormGroup>
