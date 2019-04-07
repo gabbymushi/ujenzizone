@@ -144,6 +144,9 @@ class Home extends Component {
                                     placeholder="Write your topic..." />
                             </Col>
                         </FormGroup>
+                        <FormGroup row>
+                      
+                        </FormGroup>
                     </ModalBody>
                     <ModalFooter>
                         <Button color="primary" onClick={this.handleSubmit}>Save</Button>{' '}
