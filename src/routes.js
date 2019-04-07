@@ -42,7 +42,7 @@ const Login = React.lazy(() => import('./components/Login/Login'));
 const Register = React.lazy(() => import('./components/Members/Register'));
 const Forums = React.lazy(() => import('./components/Forums/Forums'));
 const Forum = React.lazy(() => import('./components/Forums/Forum'));
-const Threads = React.lazy(() => import('./components/Forums/Threads'));
+const Thread = React.lazy(() => import('./components/Threads/Thread'));
 
 // https://github.com/ReactTraining/react-router/tree/master/packages/react-router-config
 const routes = [
@@ -51,8 +51,8 @@ const routes = [
   { path: '/login', name: 'Home', component: Login },
   { path: '/register', name: 'Register', component: Register },
   { path: '/forums',exact: true, name: 'Forums', component: Forums },
-  { path: '/forums/:id',exact: true, name: 'Forum', component: Forum },
-  { path: '/threads', name: 'Threads', component: Threads },
+  { path: '/threads/:id',exact: true, name: 'Threads', component: Forum },
+  { path: '/threads/:id/:thread', name: 'Thread', component: Thread },
 
 
 
