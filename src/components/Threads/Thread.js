@@ -83,7 +83,7 @@ class Thread extends Component {
     return (
       <div className="animated fadeIn">
         <Row>
-          <Col xs="12" xl="6">
+          {/* <Col xs="12" xl="6">
             <Card>
               <CardHeader>
                 <i className="fa fa-align-justify"></i><strong>Carousel</strong>
@@ -99,8 +99,8 @@ class Thread extends Component {
                 </Carousel>
               </CardBody>
             </Card>
-          </Col>
-          <Col xs="12" xl="6">
+          </Col> */}
+          <Col xs="12" xl="8">
             <Card>
               <CardHeader>
                 <i className="fa fa-align-justify"></i><strong>Carousel</strong>
