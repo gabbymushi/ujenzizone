@@ -23,7 +23,10 @@ class Thread extends Component {
 
   constructor(props) {
     super(props);
-    this.state = { activeIndex: 0 };
+    this.state = { 
+        activeIndex: 0,
+        comments:[] 
+    };
     this.next = this.next.bind(this);
     this.previous = this.previous.bind(this);
     this.goToIndex = this.goToIndex.bind(this);
@@ -63,7 +66,7 @@ getComments() {
     let uri = 'comments/';
     API.get(uri).then(response => {
         this.setState({
-            forums: response.data
+            comments: response.data
         });
         console.log(this.state.forums);
     }).catch((error) => {
