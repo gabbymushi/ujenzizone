@@ -84,7 +84,7 @@ class Home extends Component {
                             <CardHeader>
                                 <i className="fa fa-align-justify"></i><small
                                     className="text-muted"> </small>
-                                <strong>Ujenzi wa nyumba bora.</strong>
+                                <strong>UJENZI WA NYUMBA BORA.</strong>
                                 <div className="card-header-actions">
                                     <Button color="primary" onClick={this.togglePrimary} className="mr-1"> <i className="fa fa-comment"></i> Post Topic</Button>
                                 </div>
@@ -101,11 +101,11 @@ class Home extends Component {
                         {this.state.threads.map((thread, index) =>
                             <Card key={index}>
                                 <CardHeader>
-                                    <i className="fa fa-comment"></i><strong>{thread.title}.</strong>
+                                    <i className="fa fa-comment"></i><strong><a href="#/login">{thread.title}.</a></strong>
                                     <small> </small>
                                 </CardHeader>
                                 <CardBody>
-                                    {thread.body}
+                                    {thread.body} <a href="#/login"> more..</a>
                                 </CardBody>
                             </Card>
                         )
