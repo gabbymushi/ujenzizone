@@ -55,7 +55,9 @@ class Thread extends Component {
     if (this.animating) return;
     this.setState({ activeIndex: newIndex });
   }
-
+  componentDidMount() {
+  
+}
   render() {
     const { activeIndex } = this.state;
 
