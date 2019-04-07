@@ -148,7 +148,10 @@ class Home extends Component {
                             <Col md="3">
                                 <Label htmlFor="text-input">Upload</Label>
                             </Col>
-                        
+                            <Col xs="12" md="9">
+                               
+                                {/*<FormText color="muted">This is a help text</FormText>*/}
+                            </Col>
                         </FormGroup>
                     </ModalBody>
                     <ModalFooter>
