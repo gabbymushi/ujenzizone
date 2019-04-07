@@ -132,7 +132,7 @@ class Forums extends Component {
                                 </div>
                             </CardHeader>
                             <CardBody>
-                                {this.state.forums.length > 1 ?
+                                {this.state.forums.length > 0 ?
                                     <div>
                                         <Table responsive hover>
                                             <thead>
