@@ -6,6 +6,7 @@ const api = axios.create({
     headers: {
         // 'Access-Control-Allow-Headers': 'x-access-token',
         'Authorization': 'Bearer ' + localStorage.getItem('token')
+        //'Authorization': 'Bearer mama' 
     }
 });
 // api.interceptors.request.use(function (config) {

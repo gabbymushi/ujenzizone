@@ -8,13 +8,13 @@ class Login extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      user_name: '',
+      email: '',
       password: ''
 
     }
   }
-  handleUserName = (e) => {
-    this.setState({ user_name: e.target.value });
+  handleEmail = (e) => {
+    this.setState({ email: e.target.value });
   }
   handlePassword = (e) => {
     this.setState({ password: e.target.value });
@@ -22,7 +22,7 @@ class Login extends Component {
   handleSubmit = (e) => {
     e.preventDefault();
     let credentials = {
-      user_name: this.state.user_name,
+      email: this.state.email,
       password: this.state.password
     }
     API.post('auth/login', credentials).then((response) => {
@@ -33,6 +33,7 @@ class Login extends Component {
       // });
       localStorage.clear();
       const token = response.data.token;
+      //const token = "baba";
                 // const userType = response.data.user.user_type;
                 //const userInfo = response.data.user;
                 // const userInfo = response.data.user_info
@@ -86,9 +87,9 @@ class Login extends Component {
                           </InputGroupText>
                         </InputGroupAddon>
                         <Input
-                          onChange={this.handleUserName}
+                          onChange={this.handleEmail}
                           type="text"
-                          placeholder="Username"
+                          placeholder="Email"
                           autoComplete="username"
                         />
                       </InputGroup>
@@ -144,10 +145,10 @@ class Login extends Component {
                           </InputGroupText>
                         </InputGroupAddon>
                         <Input
-                          onChange={this.handleUserName}
+                          onChange={this.handleEmail}
                           type="text"
-                          placeholder="Username"
-                          autoComplete="username"
+                          placeholder="Email"
+                          autoComplete="email"
                         />
                       </InputGroup>
                       <InputGroup className="mb-4">

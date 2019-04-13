@@ -31,7 +31,7 @@ class ForumRow extends Component {
                             'primary'
         }
         return (
-            <tr key={forum._id.toString()}>
+            <tr key={forum.forum_id.toString()}>
                 <th scope="row"><a href={groupLink}>{index + 1}</a></th>
                 <td>{forum.forum_name}</td>
                 <td>{forum.description}</td>

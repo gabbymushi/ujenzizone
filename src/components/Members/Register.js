@@ -8,7 +8,6 @@ class Register extends Component {
     this.state = {
       first_name: '',
       last_name: '',
-      user_name: '',
       gender: '',
       email: '',
       password: ''
@@ -21,9 +20,7 @@ class Register extends Component {
   handleLastName = (e) => {
     this.setState({ last_name: e.target.value });
   }
-  handleUsername = (e) => {
-    this.setState({ user_name: e.target.value });
-  }
+
   handleEmail = (e) => {
     this.setState({ email: e.target.value });
   }
@@ -38,7 +35,6 @@ class Register extends Component {
     let member = {
       first_name: this.state.first_name,
       last_name: this.state.last_name,
-      user_name: this.state.user_name,
       gender: 'Male',
       email: this.state.email,
       password: this.state.password
@@ -98,7 +94,7 @@ class Register extends Component {
                         placeholder="Last Name"
                         autoComplete="last_name" />
                     </InputGroup>
-                    <InputGroup className="mb-3">
+                    {/* <InputGroup className="mb-3">
                       <InputGroupAddon addonType="prepend">
                         <InputGroupText>
                           <i className="icon-user"></i>
@@ -110,7 +106,7 @@ class Register extends Component {
                         type="text"
                         placeholder="Username"
                         autoComplete="user_name" />
-                    </InputGroup>
+                    </InputGroup> */}
                     <InputGroup className="mb-3">
                       <InputGroupAddon addonType="prepend">
                         <InputGroupText>@</InputGroupText>
