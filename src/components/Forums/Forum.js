@@ -5,7 +5,7 @@ class Home extends Component {
 
     constructor(props) {
         super(props);
-
+        this.forum_id = this.props.match.params.id;
         this.toggle = this.toggle.bind(this);
         this.state = {
             title: '',
@@ -35,12 +35,13 @@ class Home extends Component {
     }
     getForums() {
 
-        let uri = 'threads/';
+        let uri = 'threads/' + this.forum_id;
         API.get(uri).then(response => {
             this.setState({
                 threads: response.data
             });
-            console.log(this.state.forums);
+            console.log(this.state.threads);
+            return;
         }).catch((error) => {
             console.log(error)
         });
@@ -53,11 +54,11 @@ class Home extends Component {
     }
     handleSubmit = (e) => {
         e.preventDefault();
-        let forum_id = this.props.match.params.id;
+        //let forum_id = this.props.match.params.id;
         let thread = {
             title: this.state.title,
             body: this.state.body,
-            forum_id: forum_id
+            forum_id: this.forum_id
         }
         console.log('👉 Returned data:', thread);
         API.post('threads/', thread).then((response) => {
@@ -101,11 +102,11 @@ class Home extends Component {
                         {this.state.threads.map((thread, index) =>
                             <Card key={index}>
                                 <CardHeader>
-                                    <i className="fa fa-comment"></i><strong><a href={`#/threads/${this.props.match.params.id}/${thread._id}`}>{thread.title}.</a></strong>
+                                    <i className="fa fa-comment"></i><strong><a href={`#/threads/${this.props.match.params.id}/${thread.thread_id}`}>{thread.title}.</a></strong>
                                     <small> </small>
                                 </CardHeader>
                                 <CardBody>
-                                    {thread.body} <a href={`#/threads/${this.props.match.params.id}/${thread._id}`}> more..</a>
+                                    {thread.body} <a href={`#/threads/${this.props.match.params.id}/${thread.thread_id}`}> more..</a>
                                 </CardBody>
                             </Card>
                         )
@@ -149,12 +150,11 @@ class Home extends Component {
                                 <Label htmlFor="text-input">Upload</Label>
                             </Col>
                             <Col xs="12" md="9">
-                            <Input
-                                 onChange={this.handleUpload}
-                                 value={this.state.image}
-                                 type="file" id="text-input"
-                                 name="image" 
-                                  
+                                <Input
+                                    onChange={this.handleUpload}
+                                    value={this.state.image}
+                                    type="file" id="text-input"
+                                    name="image"
                                     required />
                                 {/*<FormText color="muted">This is a help text</FormText>*/}
                             </Col>
