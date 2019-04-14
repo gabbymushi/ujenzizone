@@ -143,7 +143,7 @@ class Thread extends Component {
               name="textarea-input"
               id="textarea-input" rows="9"
               placeholder="Write your comment..." />
-              
+              <Button color="primary" onClick={this.handleSubmit}>Comment</Button>
               </CardBody>
             </Card>
           </Col>
