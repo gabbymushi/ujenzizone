@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import {Input, Card, CardBody, CardHeader, Carousel, CarouselCaption, CarouselControl, CarouselIndicators, CarouselItem, Col, Row } from 'reactstrap';
+import {Button,Input, Card, CardBody, CardHeader, Carousel, CarouselCaption, CarouselControl, CarouselIndicators, CarouselItem, Col, Row } from 'reactstrap';
 import API from '../../utils/API';
 const items = [
   {
@@ -143,6 +143,7 @@ class Thread extends Component {
               name="textarea-input"
               id="textarea-input" rows="9"
               placeholder="Write your comment..." />
+              
               </CardBody>
             </Card>
           </Col>
