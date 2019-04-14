@@ -141,7 +141,7 @@ class Thread extends Component {
           </Col>
         </Row>
         <Row>
-          <Col xs="12" md="9">
+          <Col xs="12" md="8">
             <Input
               onChange={this.handleBody}
               value={this.state.body}
