@@ -77,6 +77,7 @@ class Home extends Component {
 
     }
     render() {
+        // const forum_name=this.state.threads[0].forum.forum_name;
         return (
             <div className="animated fadeIn">
                 <Row>
@@ -85,7 +86,7 @@ class Home extends Component {
                             <CardHeader>
                                 <i className="fa fa-align-justify"></i><small
                                     className="text-muted"> </small>
-                                <strong>UJENZI WA NYUMBA BORA.</strong>
+                                <strong>{this.state.threads[0] && this.state.threads[0].forum.forum_name}.</strong>
                                 <div className="card-header-actions">
                                     <Button color="primary" onClick={this.togglePrimary} className="mr-1"> <i className="fa fa-comment"></i> Post Topic</Button>
                                 </div>
