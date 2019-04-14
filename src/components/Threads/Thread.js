@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { Card, CardBody, CardHeader, Carousel, CarouselCaption, CarouselControl, CarouselIndicators, CarouselItem, Col, Row } from 'reactstrap';
+import {Button,Input, Card, CardBody, CardHeader, Carousel, CarouselCaption, CarouselControl, CarouselIndicators, CarouselItem, Col, Row } from 'reactstrap';
 import API from '../../utils/API';
 const items = [
   {
@@ -23,9 +23,9 @@ class Thread extends Component {
 
   constructor(props) {
     super(props);
-    this.state = { 
-        activeIndex: 0,
-        comments:[] 
+    this.state = {
+      activeIndex: 0,
+      comments: []
     };
     this.next = this.next.bind(this);
     this.previous = this.previous.bind(this);
@@ -59,20 +59,20 @@ class Thread extends Component {
     this.setState({ activeIndex: newIndex });
   }
   componentDidMount() {
-  
-}
-getComments() {
+
+  }
+  getComments() {
 
     let uri = 'comments/';
     API.get(uri).then(response => {
-        this.setState({
-            comments: response.data
-        });
-        console.log(this.state.forums);
+      this.setState({
+        comments: response.data
+      });
+      console.log(this.state.forums);
     }).catch((error) => {
-        console.log(error)
+      console.log(error)
     });
-}
+  }
   render() {
     const { activeIndex } = this.state;
 
@@ -130,16 +130,35 @@ getComments() {
                   <CarouselControl direction="prev" directionText="Previous" onClickHandler={this.previous} />
                   <CarouselControl direction="next" directionText="Next" onClickHandler={this.next} />
                 </Carousel>
-               
-               {this.state.comments.length > 0 ?
-               <p>
-                 {this.state.comments[0].comment}
-               </p>: <p>No comments yet</p>
-               }
+
+                {this.state.comments.length > 0 ?
+                  <p>
+                    {this.state.comments[0].comment}
+                  </p> : <p>No comments yet</p>
+                }
+                   <Input
+              onChange={this.handleBody}
+              value={this.state.body}
+              type="textarea"
+              name="textarea-input"
+              id="textarea-input" rows="9"
+              placeholder="Write your comment..." />
+              <Button color="primary" onClick={this.handleSubmit}>Comment</Button>
               </CardBody>
             </Card>
           </Col>
         </Row>
+        {/* <Row>
+          <Col xs="12" md="8">
+            <Input
+              onChange={this.handleBody}
+              value={this.state.body}
+              type="textarea"
+              name="textarea-input"
+              id="textarea-input" rows="9"
+              placeholder="Write your comment..." />
+          </Col>
+        </Row> */}
       </div>
     );
   }
