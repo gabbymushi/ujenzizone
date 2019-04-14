@@ -136,11 +136,18 @@ class Thread extends Component {
                     {this.state.comments[0].comment}
                   </p> : <p>No comments yet</p>
                 }
+                   <Input
+              onChange={this.handleBody}
+              value={this.state.body}
+              type="textarea"
+              name="textarea-input"
+              id="textarea-input" rows="9"
+              placeholder="Write your comment..." />
               </CardBody>
             </Card>
           </Col>
         </Row>
-        <Row>
+        {/* <Row>
           <Col xs="12" md="8">
             <Input
               onChange={this.handleBody}
@@ -150,7 +157,7 @@ class Thread extends Component {
               id="textarea-input" rows="9"
               placeholder="Write your comment..." />
           </Col>
-        </Row>
+        </Row> */}
       </div>
     );
   }
