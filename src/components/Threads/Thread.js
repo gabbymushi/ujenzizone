@@ -148,7 +148,7 @@ class Thread extends Component {
               type="textarea"
               name="textarea-input"
               id="textarea-input" rows="9"
-              placeholder="Write your topic..." />
+              placeholder="Write your comment..." />
           </Col>
         </Row>
       </div>
