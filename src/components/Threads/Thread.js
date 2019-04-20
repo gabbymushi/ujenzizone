@@ -94,9 +94,9 @@ class Thread extends Component {
         e.preventDefault();
         let comment = {
             comment: this.state.comment,
-            thread_id: this.state.description
+            thread_id: this.thread_id
         }
-        API.post('comments/', forum).then((response) => {
+        API.post('comments/', comment).then((response) => {
             // console.log(response);
             console.log('👉 Returned data:', response);
             this.setState({
