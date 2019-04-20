@@ -102,9 +102,8 @@ class Thread extends Component {
         console.log("👉 Returned data:", response);
         this.setState({
           comment: "",
-          comments: response.data
         });
-        //this.getForums();
+        this.getComments();
       })
       .catch(error => {
         //console.log(error.request);
