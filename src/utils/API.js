@@ -5,7 +5,7 @@ const api = axios.create({
     baseURL: "http://localhost:4000/api/v1/",
     headers: {
         // 'Access-Control-Allow-Headers': 'x-access-token',
-        'Authorization': 'Bearer ' + localStorage.getItem('token')
+        'Authorization': 'Bearer ' + window.localStorage.getItem('token')
         //'Authorization': 'Bearer mama' 
     }
 });
