@@ -100,11 +100,11 @@ class Thread extends Component {
             // console.log(response);
             console.log('👉 Returned data:', response);
             this.setState({
-                forum_name: '',
-                description: ''
+                comment: '',
+                comments: response.data
 
             });
-            this.getForums();
+            //this.getForums();
         }).catch((error) => {
             //console.log(error.request);
             console.log(`😱 Axios request failed: ${error}`);
