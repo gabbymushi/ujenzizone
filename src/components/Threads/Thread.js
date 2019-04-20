@@ -111,9 +111,11 @@ class Thread extends Component {
         console.log(`😱 Axios request failed: ${error}`);
       });
   };
-  componentDidMount() {}
+  componentDidMount() {
+    this.getComments();
+  }
   getComments() {
-    let uri = "comments/";
+    let uri = "comments/" + this.thread_id;
     API.get(uri)
       .then(response => {
         this.setState({
@@ -201,7 +203,19 @@ class Thread extends Component {
                   />
                 </Carousel>
                 {this.state.comments.length > 0 ? (
-                  <p> {this.state.comments[0].comment} </p>
+                  // <p> {this.state.comments[0].comment} </p>
+                  this.state.comments.map((comment, index) =>
+                    <Card key={index}>
+                        <CardHeader>
+                            <i className="fa fa-comment"></i><strong><a href={`#/threads/${this.props.match.params.id}/${comment.member_id}`}>{comment.first_name}.</a></strong>
+                            <small> </small>
+                        </CardHeader>
+                        <CardBody>
+                            {comment.comment} 
+                        </CardBody>
+                    </Card>
+                )
+                
                 ) : (
                   <p>No comments yet</p>
                 )}{" "}
