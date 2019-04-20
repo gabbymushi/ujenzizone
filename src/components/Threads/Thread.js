@@ -38,6 +38,7 @@ const items = [
 class Thread extends Component {
   constructor(props) {
     super(props);
+    this.thread_id = this.props.match.params.thread;
     this.state = {
       activeIndex: 0,
       comments: [],
@@ -49,7 +50,6 @@ class Thread extends Component {
     this.onExiting = this.onExiting.bind(this);
     this.onExited = this.onExited.bind(this);
   }
-
   onExiting() {
     this.animating = true;
   }
@@ -94,7 +94,7 @@ class Thread extends Component {
         e.preventDefault();
         let comment = {
             comment: this.state.comment,
-            description: this.state.description
+            thread_id: this.state.description
         }
         API.post('comments/', forum).then((response) => {
             // console.log(response);
