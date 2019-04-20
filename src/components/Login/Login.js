@@ -38,7 +38,7 @@ class Login extends Component {
                 // const userType = response.data.user.user_type;
                 //const userInfo = response.data.user;
                 // const userInfo = response.data.user_info
-                localStorage.setItem('token',token);
+                window.localStorage.setItem('token',token);
                 // localStorage.setItem('user_type',userType);
                 // localStorage.setItem('userInfo',JSON.stringify(userInfo));
                 // console.log('emp',localStorage.getItem('userInfo'))
