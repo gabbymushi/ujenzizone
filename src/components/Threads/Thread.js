@@ -42,7 +42,7 @@ class Thread extends Component {
     this.state = {
       activeIndex: 0,
       comments: [],
-      comment:''
+      comment: ""
     };
     this.next = this.next.bind(this);
     this.previous = this.previous.bind(this);
@@ -87,30 +87,30 @@ class Thread extends Component {
     });
   }
 
-    handleComment = (e) => {
-        this.setState({ comment: e.target.value });
-    }
-    handleSubmit = (e) => {
-        e.preventDefault();
-        let comment = {
-            comment: this.state.comment,
-            thread_id: this.thread_id
-        }
-        API.post('comments/', comment).then((response) => {
-            // console.log(response);
-            console.log('👉 Returned data:', response);
-            this.setState({
-                comment: '',
-                comments: response.data
-
-            });
-            //this.getForums();
-        }).catch((error) => {
-            //console.log(error.request);
-            console.log(`😱 Axios request failed: ${error}`);
+  handleComment = e => {
+    this.setState({ comment: e.target.value });
+  };
+  handleSubmit = e => {
+    e.preventDefault();
+    let comment = {
+      comment: this.state.comment,
+      thread_id: this.thread_id
+    };
+    API.post("comments/", comment)
+      .then(response => {
+        // console.log(response);
+        console.log("👉 Returned data:", response);
+        this.setState({
+          comment: "",
+          comments: response.data
         });
-
-    }
+        //this.getForums();
+      })
+      .catch(error => {
+        //console.log(error.request);
+        console.log(`😱 Axios request failed: ${error}`);
+      });
+  };
   componentDidMount() {}
   getComments() {
     let uri = "comments/";
@@ -119,7 +119,7 @@ class Thread extends Component {
         this.setState({
           comments: response.data
         });
-        console.log(this.state.forums);
+        console.log(this.state.comments);
       })
       .catch(error => {
         console.log(error);
@@ -135,7 +135,6 @@ class Thread extends Component {
     //     </CarouselItem>
     //   );
     // });
-
     const slides2 = items.map(item => {
       return (
         <CarouselItem
@@ -143,11 +142,11 @@ class Thread extends Component {
           onExited={this.onExited}
           key={item.src}
         >
-          <img className="d-block w-100" src={item.src} alt={item.altText} />{" "}
+          <img className="d-block w-100" src={item.src} alt={item.altText} />
           <CarouselCaption
             captionText={item.caption}
             captionHeader={item.caption}
-          />{" "}
+          />
         </CarouselItem>
       );
     });
@@ -155,30 +154,29 @@ class Thread extends Component {
     return (
       <div className="animated fadeIn">
         <Row>
-          {" "}
           {/* <Col xs="12" xl="6">
-                    <Card>
-                      <CardHeader>
-                        <i className="fa fa-align-justify"></i><strong>Carousel</strong>
-                        <div className="card-header-actions">
-                          <a href="https://reactstrap.github.io/components/carousel/" rel="noreferrer noopener" target="_blank" className="card-header-action">
-                            <small className="text-muted">docs</small>
-                          </a>
-                        </div>
-                      </CardHeader>
-                      <CardBody>
-                        <Carousel activeIndex={activeIndex} next={this.next} previous={this.previous} ride="carousel">
-                          {slides}
-                        </Carousel>
-                      </CardBody>
-                    </Card>
-                  </Col> */}{" "}
+            <Card>
+              <CardHeader>
+                <i className="fa fa-align-justify"></i><strong>Carousel</strong>
+                <div className="card-header-actions">
+                  <a href="https://reactstrap.github.io/components/carousel/" rel="noreferrer noopener" target="_blank" className="card-header-action">
+                    <small className="text-muted">docs</small>
+                  </a>
+                </div>
+              </CardHeader>
+              <CardBody>
+                <Carousel activeIndex={activeIndex} next={this.next} previous={this.previous} ride="carousel">
+                  {slides}
+                </Carousel>
+              </CardBody>
+            </Card>
+          </Col> */}
           <Col xs="12" xl="8">
             <Card>
               <CardHeader>
-                <i className="fa fa-align-justify"> </i>{" "}
-                <strong> Carousel </strong>{" "}
-              </CardHeader>{" "}
+                <i className="fa fa-align-justify" />
+                <strong>Carousel</strong>
+              </CardHeader>
               <CardBody>
                 <Carousel
                   activeIndex={activeIndex}
@@ -189,18 +187,18 @@ class Thread extends Component {
                     items={items}
                     activeIndex={activeIndex}
                     onClickHandler={this.goToIndex}
-                  />{" "}
-                  {slides2}{" "}
+                  />
+                  {slides2}
                   <CarouselControl
                     direction="prev"
                     directionText="Previous"
                     onClickHandler={this.previous}
-                  />{" "}
+                  />
                   <CarouselControl
                     direction="next"
                     directionText="Next"
                     onClickHandler={this.next}
-                  />{" "}
+                  />
                 </Carousel>
                 {this.state.comments.length > 0 ? (
                   <p> {this.state.comments[0].comment} </p>
@@ -209,7 +207,7 @@ class Thread extends Component {
                 )}{" "}
                 <Input
                   onChange={this.handleComment}
-                  value={this.state.body}
+                  value={this.state.comment}
                   type="textarea"
                   name="textarea-input"
                   id="textarea-input"
