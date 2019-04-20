@@ -40,7 +40,8 @@ class Thread extends Component {
     super(props);
     this.state = {
       activeIndex: 0,
-      comments: []
+      comments: [],
+      comment:''
     };
     this.next = this.next.bind(this);
     this.previous = this.previous.bind(this);
