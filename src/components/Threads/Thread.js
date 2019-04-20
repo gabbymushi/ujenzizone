@@ -87,7 +87,7 @@ class Thread extends Component {
   }
 
     handleComment = (e) => {
-        this.setState({ description: e.target.value });
+        this.setState({ comment: e.target.value });
     }
     handleSubmit = (e) => {
         e.preventDefault();
