@@ -92,8 +92,8 @@ class Thread extends Component {
     }
     handleSubmit = (e) => {
         e.preventDefault();
-        let forum = {
-            forum_name: this.state.forum_name,
+        let comment = {
+            comment: this.state.comment,
             description: this.state.description
         }
         API.post('comments/', forum).then((response) => {
