@@ -41,6 +41,7 @@ class Thread extends Component {
     this.thread_id = this.props.match.params.thread;
     this.state = {
       activeIndex: 0,
+      thread: '',
       comments: [],
       comment: ""
     };
@@ -126,6 +127,7 @@ class Thread extends Component {
         console.log(error);
       });
   }
+
   render() {
     const { activeIndex } = this.state;
 
@@ -206,7 +208,7 @@ class Thread extends Component {
                   this.state.comments.map((comment, index) =>
                     <Card key={index}>
                         <CardHeader>
-                            <i className="fa fa-comment"></i><strong><a href={`#/threads/${this.props.match.params.id}/${comment.member_id}`}>{comment.first_name}.</a></strong>
+                            <i className="fa fa-comment"></i><strong><a href={`#/threads/${this.props.match.params.id}/${comment.member_id}`}>{comment.member.first_name}.</a></strong>
                             <small> </small>
                         </CardHeader>
                         <CardBody>
