@@ -127,7 +127,19 @@ class Thread extends Component {
         console.log(error);
       });
   }
-
+  getThread() {
+    let uri = "threads/" + this.thread_id;
+    API.get(uri)
+      .then(response => {
+        this.setState({
+          thread: response.data
+        });
+        // console.log(this.state.comments);
+      })
+      .catch(error => {
+        console.log(error);
+      });
+  }
   render() {
     const { activeIndex } = this.state;
 
