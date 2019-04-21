@@ -41,6 +41,7 @@ class Thread extends Component {
     this.thread_id = this.props.match.params.thread;
     this.state = {
       activeIndex: 0,
+      thread: '',
       comments: [],
       comment: ""
     };
@@ -111,6 +112,7 @@ class Thread extends Component {
       });
   };
   componentDidMount() {
+    this.getThread();
     this.getComments();
   }
   getComments() {
@@ -121,6 +123,19 @@ class Thread extends Component {
           comments: response.data
         });
         console.log(this.state.comments);
+      })
+      .catch(error => {
+        console.log(error);
+      });
+  }
+  getThread() {
+    let uri = "threads/" + this.thread_id +"/thread";
+    API.get(uri)
+      .then(response => {
+        this.setState({
+          thread: response.data
+        });
+        // console.log(this.state.comments);
       })
       .catch(error => {
         console.log(error);
@@ -176,7 +191,7 @@ class Thread extends Component {
             <Card>
               <CardHeader>
                 <i className="fa fa-align-justify" />
-                <strong>Carousel</strong>
+                <strong>{this.state.thread[0].title}</strong>
               </CardHeader>
               <CardBody>
                 <Carousel
@@ -201,12 +216,13 @@ class Thread extends Component {
                     onClickHandler={this.next}
                   />
                 </Carousel>
+                 <p> {this.state.thread[0].body} </p>
                 {this.state.comments.length > 0 ? (
                   // <p> {this.state.comments[0].comment} </p>
                   this.state.comments.map((comment, index) =>
                     <Card key={index}>
                         <CardHeader>
-                            <i className="fa fa-comment"></i><strong><a href={`#/threads/${this.props.match.params.id}/${comment.member_id}`}>{comment.first_name}.</a></strong>
+                            <i className="fa fa-comment"></i><strong><a href={`#/threads/${this.props.match.params.id}/${comment.member_id}`}>{comment.member.first_name}.</a></strong>
                             <small> </small>
                         </CardHeader>
                         <CardBody>
