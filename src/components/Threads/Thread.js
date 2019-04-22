@@ -13,6 +13,7 @@ import {
   Col,
   Row
 } from "reactstrap";
+import socketIOClient from 'socket.io-client';
 import API from "../../utils/API";
 const items = [
   {
@@ -41,7 +42,7 @@ class Thread extends Component {
     this.thread_id = this.props.match.params.thread;
     this.state = {
       activeIndex: 0,
-      thread: '',
+      thread: [],
       comments: [],
       comment: ""
     };
@@ -135,7 +136,7 @@ class Thread extends Component {
         this.setState({
           thread: response.data
         });
-        // console.log(this.state.comments);
+         console.log(this.state.thread);
       })
       .catch(error => {
         console.log(error);
@@ -190,8 +191,8 @@ class Thread extends Component {
           <Col xs="12" xl="8">
             <Card>
               <CardHeader>
-                <i className="fa fa-align-justify" />
-                <strong>{this.state.thread[0].title}</strong>
+                {/* <i className="fa fa-align-justify" /> */}
+                <strong>  {this.state.thread.length > 0 ? (<p> Posted by {this.state.thread[0].member.first_name}: {this.state.thread[0].title}</p>):(<p>Loading..</p>)}</strong>
               </CardHeader>
               <CardBody>
                 <Carousel
@@ -216,7 +217,9 @@ class Thread extends Component {
                     onClickHandler={this.next}
                   />
                 </Carousel>
-                 <p> {this.state.thread[0].body} </p>
+                     
+             {this.state.thread.length > 0 ? (<p> {this.state.thread[0].body}</p>):(<p>Loading..</p>)}
+                   
                 {this.state.comments.length > 0 ? (
                   // <p> {this.state.comments[0].comment} </p>
                   this.state.comments.map((comment, index) =>
