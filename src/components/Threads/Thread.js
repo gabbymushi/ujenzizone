@@ -13,6 +13,7 @@ import {
   Col,
   Row
 } from "reactstrap";
+import socketIOClient from 'socket.io-client';
 import API from "../../utils/API";
 const items = [
   {
@@ -34,17 +35,20 @@ const items = [
     caption: "Slide 3"
   }
 ];
-
+var socket;
 class Thread extends Component {
   constructor(props) {
     super(props);
     this.thread_id = this.props.match.params.thread;
     this.state = {
+      endpoint: 'http://localhost:4000/',
       activeIndex: 0,
-      thread: '',
+      thread: [],
       comments: [],
-      comment: ""
+      comment: "",
+
     };
+    socket = socketIOClient(this.state.endpoint);
     this.next = this.next.bind(this);
     this.previous = this.previous.bind(this);
     this.goToIndex = this.goToIndex.bind(this);
@@ -95,39 +99,52 @@ class Thread extends Component {
     e.preventDefault();
     let comment = {
       comment: this.state.comment,
-      thread_id: this.thread_id
+      thread_id: this.thread_id,
+      member_id: 1
     };
-    API.post("comments/", comment)
-      .then(response => {
-        // console.log(response);
-        console.log("👉 Returned data:", response);
+    socket.emit('saveComment',comment)
+    // API.post("comments/", comment)
+    //   .then(response => {
+    //     // console.log(response);
+    //     console.log("👉 Returned data:", response);
         this.setState({
           comment: "",
         });
-        this.getComments();
-      })
-      .catch(error => {
-        //console.log(error.request);
-        console.log(`😱 Axios request failed: ${error}`);
-      });
+    //     this.getComments();
+    //   })
+    //   .catch(error => {
+    //     //console.log(error.request);
+    //     console.log(`😱 Axios request failed: ${error}`);
+    //   });
   };
+  getComments = comments => {
+    console.log(comments);
+    this.setState({
+              comments:comments
+            });
+  };
+  changeData = () => socket.emit("initial_comments",this.thread_id);
+
   componentDidMount() {
     this.getThread();
-    this.getComments();
+    // this.getComments();
+    socket.emit("initial_comments",this.thread_id);
+    socket.on("getComments", this.getComments);
+    socket.on("changeData", this.changeData);
   }
-  getComments() {
-    let uri = "comments/" + this.thread_id;
-    API.get(uri)
-      .then(response => {
-        this.setState({
-          comments: response.data
-        });
-        console.log(this.state.comments);
-      })
-      .catch(error => {
-        console.log(error);
-      });
-  }
+  // getComments() {
+  //   let uri = "comments/" + this.thread_id;
+  //   API.get(uri)
+  //     .then(response => {
+  //       this.setState({
+  //         comments: response.data
+  //       });
+  //       console.log(this.state.comments);
+  //     })
+  //     .catch(error => {
+  //       console.log(error);
+  //     });
+  // }
   getThread() {
     let uri = "threads/" + this.thread_id +"/thread";
     API.get(uri)
@@ -135,7 +152,7 @@ class Thread extends Component {
         this.setState({
           thread: response.data
         });
-        // console.log(this.state.comments);
+         console.log(this.state.thread);
       })
       .catch(error => {
         console.log(error);
@@ -190,8 +207,8 @@ class Thread extends Component {
           <Col xs="12" xl="8">
             <Card>
               <CardHeader>
-                <i className="fa fa-align-justify" />
-                <strong>{this.state.thread[0].title}</strong>
+                {/* <i className="fa fa-align-justify" /> */}
+                <strong>  {this.state.thread.length > 0 ? (<p> Posted by {this.state.thread[0].member.first_name}: {this.state.thread[0].title}</p>):(<p>Loading..</p>)}</strong>
               </CardHeader>
               <CardBody>
                 <Carousel
@@ -216,7 +233,9 @@ class Thread extends Component {
                     onClickHandler={this.next}
                   />
                 </Carousel>
-                 <p> {this.state.thread[0].body} </p>
+                     
+             {this.state.thread.length > 0 ? (<p> {this.state.thread[0].body}</p>):(<p>Loading..</p>)}
+                   
                 {this.state.comments.length > 0 ? (
                   // <p> {this.state.comments[0].comment} </p>
                   this.state.comments.map((comment, index) =>
