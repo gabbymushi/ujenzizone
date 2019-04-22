@@ -35,17 +35,20 @@ const items = [
     caption: "Slide 3"
   }
 ];
-
+var socket;
 class Thread extends Component {
   constructor(props) {
     super(props);
     this.thread_id = this.props.match.params.thread;
     this.state = {
+      endpoint: 'http://localhost:4000/',
       activeIndex: 0,
       thread: [],
       comments: [],
-      comment: ""
+      comment: "",
+
     };
+    socket = socketIOClient(this.state.endpoint);
     this.next = this.next.bind(this);
     this.previous = this.previous.bind(this);
     this.goToIndex = this.goToIndex.bind(this);
@@ -96,39 +99,52 @@ class Thread extends Component {
     e.preventDefault();
     let comment = {
       comment: this.state.comment,
-      thread_id: this.thread_id
+      thread_id: this.thread_id,
+      member_id: 1
     };
-    API.post("comments/", comment)
-      .then(response => {
-        // console.log(response);
-        console.log("👉 Returned data:", response);
+    socket.emit('saveComment',comment)
+    // API.post("comments/", comment)
+    //   .then(response => {
+    //     // console.log(response);
+    //     console.log("👉 Returned data:", response);
         this.setState({
           comment: "",
         });
-        this.getComments();
-      })
-      .catch(error => {
-        //console.log(error.request);
-        console.log(`😱 Axios request failed: ${error}`);
-      });
+    //     this.getComments();
+    //   })
+    //   .catch(error => {
+    //     //console.log(error.request);
+    //     console.log(`😱 Axios request failed: ${error}`);
+    //   });
   };
+  getComments = comments => {
+    console.log(comments);
+    this.setState({
+              comments:comments
+            });
+  };
+  changeData = () => socket.emit("initial_comments",this.thread_id);
+
   componentDidMount() {
     this.getThread();
-    this.getComments();
+    // this.getComments();
+    socket.emit("initial_comments",this.thread_id);
+    socket.on("getComments", this.getComments);
+    socket.on("changeData", this.changeData);
   }
-  getComments() {
-    let uri = "comments/" + this.thread_id;
-    API.get(uri)
-      .then(response => {
-        this.setState({
-          comments: response.data
-        });
-        console.log(this.state.comments);
-      })
-      .catch(error => {
-        console.log(error);
-      });
-  }
+  // getComments() {
+  //   let uri = "comments/" + this.thread_id;
+  //   API.get(uri)
+  //     .then(response => {
+  //       this.setState({
+  //         comments: response.data
+  //       });
+  //       console.log(this.state.comments);
+  //     })
+  //     .catch(error => {
+  //       console.log(error);
+  //     });
+  // }
   getThread() {
     let uri = "threads/" + this.thread_id +"/thread";
     API.get(uri)
