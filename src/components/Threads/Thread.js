@@ -100,7 +100,7 @@ class Thread extends Component {
     let comment = {
       comment: this.state.comment,
       thread_id: this.thread_id,
-      member_id: 1
+      member_id: JSON.parse(localStorage.getItem('member')).member_id
     };
     socket.emit('saveComment',comment)
     // API.post("comments/", comment)
