@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import { Link,Redirect } from 'react-router-dom';
 //import {withRouter,HashRouter, Route, Switch,Redirect} from 'react-router-dom';
 import API from '../../utils/API'
-import axios from 'axios';
+// import axios from 'axios';
 import { Button, Card, CardBody, CardGroup, Col, Container, Form, Input, InputGroup, InputGroupAddon, InputGroupText, Row } from 'reactstrap';
 
 class Login extends Component {
@@ -26,7 +26,7 @@ class Login extends Component {
       email: this.state.email,
       password: this.state.password
     }
-    axios.post('http://localhost:4000/api/v1/auth/login', credentials).then((response) => {
+    API.post('auth/login', credentials).then((response) => {
       console.log('👉 Returned data:', response);
       // this.setState({
       //     user_name: '',
