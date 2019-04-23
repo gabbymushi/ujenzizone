@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import { Link,Redirect } from 'react-router-dom';
 //import {withRouter,HashRouter, Route, Switch,Redirect} from 'react-router-dom';
 import API from '../../utils/API'
-import axios from 'axios';
+// import axios from 'axios';
 import { Button, Card, CardBody, CardGroup, Col, Container, Form, Input, InputGroup, InputGroupAddon, InputGroupText, Row } from 'reactstrap';
 
 class Login extends Component {
@@ -26,7 +26,7 @@ class Login extends Component {
       email: this.state.email,
       password: this.state.password
     }
-    axios.post('http://localhost:4000/api/v1/auth/login', credentials).then((response) => {
+    API.post('auth/login', credentials).then((response) => {
       console.log('👉 Returned data:', response);
       // this.setState({
       //     user_name: '',
@@ -36,11 +36,11 @@ class Login extends Component {
       const token = response.data.token;
       //const token = "baba";
                 // const userType = response.data.user.user_type;
-                //const userInfo = response.data.user;
+                const member = response.data.member;
                 // const userInfo = response.data.user_info
                 window.localStorage.setItem('token',token);
                 // localStorage.setItem('user_type',userType);
-                // localStorage.setItem('userInfo',JSON.stringify(userInfo));
+                localStorage.setItem('member',JSON.stringify(member));
                 // console.log('emp',localStorage.getItem('userInfo'))
                 // console.log('raw',userInfo)
                 // if(userType=="member"){
