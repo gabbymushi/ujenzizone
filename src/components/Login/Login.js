@@ -36,11 +36,11 @@ class Login extends Component {
       const token = response.data.token;
       //const token = "baba";
                 // const userType = response.data.user.user_type;
-                //const userInfo = response.data.user;
+                const member = response.data.member;
                 // const userInfo = response.data.user_info
                 window.localStorage.setItem('token',token);
                 // localStorage.setItem('user_type',userType);
-                // localStorage.setItem('userInfo',JSON.stringify(userInfo));
+                localStorage.setItem('member',JSON.stringify(member));
                 // console.log('emp',localStorage.getItem('userInfo'))
                 // console.log('raw',userInfo)
                 // if(userType=="member"){
