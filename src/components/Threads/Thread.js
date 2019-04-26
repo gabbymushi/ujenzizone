@@ -173,7 +173,7 @@ class Thread extends Component {
       });
   }
   render() {
-    const { activeIndex } = this.state;
+    const { activeIndex,comments, currentPage, commentsPerPage } = this.state;
 
     // const slides = items.map((item) => {
     //   return (
