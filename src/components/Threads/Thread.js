@@ -51,7 +51,7 @@ class Thread extends Component {
       comment: "",
       currentPage: 1,
       commentsPerPage: 2,
-      totalComments: ''
+      totalComments: ""
     };
     socket = socketIOClient(this.state.endpoint);
     this.next = this.next.bind(this);
@@ -139,18 +139,18 @@ class Thread extends Component {
     console.log(data);
     this.setState({
       comments: data.comments,
-      totalComments:data.totalComments.count
+      totalComments: data.totalComments.count
     });
   };
-  changeData = () => { 
-  const { currentPage, commentsPerPage } = this.state;
-  const indexOfLastComment = currentPage * commentsPerPage;
-  const indexOfFirstComment = indexOfLastComment - commentsPerPage;
-  socket.emit("initial_comments", {
-    thread_id: this.thread_id,
-    offset: indexOfFirstComment
-  });
-}
+  changeData = () => {
+    const { currentPage, commentsPerPage } = this.state;
+    const indexOfLastComment = currentPage * commentsPerPage;
+    const indexOfFirstComment = indexOfLastComment - commentsPerPage;
+    socket.emit("initial_comments", {
+      thread_id: this.thread_id,
+      offset: indexOfFirstComment
+    });
+  };
   componentDidMount() {
     this.getThread();
     // this.getComments();
@@ -195,7 +195,13 @@ class Thread extends Component {
       });
   }
   render() {
-    const { activeIndex, comments, totalComments, commentsPerPage } = this.state;
+    const {
+      activeIndex,
+      comments,
+      currentPage,
+      totalComments,
+      commentsPerPage
+    } = this.state;
 
     // const slides = items.map((item) => {
     //   return (
@@ -319,11 +325,11 @@ class Thread extends Component {
                 )}{" "}
                 <Pagination>
                   <PaginationItem key="prev">
-                    <PaginationLink   previous tag="button" />
+                    <PaginationLink previous tag="button" />
                   </PaginationItem>
                   {pageNumbers.map(number => {
                     return (
-                      <PaginationItem  key={number}>
+                      <PaginationItem key={number}>
                         <PaginationLink
                           tag="button"
                           id={number}
@@ -335,7 +341,12 @@ class Thread extends Component {
                     );
                   })}
                   <PaginationItem key="next">
-                    <PaginationLink  next tag="button" />
+                    <PaginationLink
+                      id={currentPage + 1}
+                      onClick={this.handlePagination}
+                      next
+                      tag="button"
+                    />
                   </PaginationItem>
                 </Pagination>
                 <Input
