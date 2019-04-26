@@ -49,6 +49,8 @@ class Thread extends Component {
       thread: [],
       comments: [],
       comment: "",
+      currentPage: 1,
+      
 
     };
     socket = socketIOClient(this.state.endpoint);
