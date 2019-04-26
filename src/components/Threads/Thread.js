@@ -50,7 +50,7 @@ class Thread extends Component {
       comments: [],
       comment: "",
       currentPage: 1,
-      commentsPerPage: 1
+      commentsPerPage: 2
     };
     socket = socketIOClient(this.state.endpoint);
     this.next = this.next.bind(this);
@@ -137,7 +137,9 @@ class Thread extends Component {
   componentDidMount() {
     this.getThread();
     // this.getComments();
-    socket.emit("initial_comments", this.thread_id);
+    const {comments, currentPage, commentsPerPage } = this.state;
+    const indexOfLastComment = currentPage * commentsPerPage;
+    socket.emit("initial_comments",{thread_id:this.thread_id,offset:0});
     socket.on("getComments", this.getComments);
     socket.on("changeData", this.changeData);
   }
@@ -184,10 +186,10 @@ class Thread extends Component {
     // Logic for displaying todos
     const indexOfLastComment = currentPage * commentsPerPage;
     const indexOfFirstComment = indexOfLastComment - commentsPerPage;
-    //const currentComments = comments.slice(indexOfFirstComment, indexOfFirstComment);
+    //const currentComments = comments.slice(indexOfFirstComment, indexOfLastComment);
     // Logic for displaying page numbers
     const pageNumbers = [];
-    for (let i = 1; i <= Math.ceil(comments.length / commentsPerPage); i++) {
+    for (let i = 1; i <= Math.ceil(5 / commentsPerPage); i++) {
       pageNumbers.push(i);
     }
     const slides2 = items.map(item => {
@@ -301,7 +303,13 @@ class Thread extends Component {
                   {pageNumbers.map(number => {
                     return (
                       <PaginationItem>
-                        <PaginationLink tag="button">{number}</PaginationLink>
+                        <PaginationLink
+                         tag="button"
+                         key={number}
+                         id={number}
+                         >
+                         {number}
+                         </PaginationLink>
                       </PaginationItem>
                     );
                   })}
