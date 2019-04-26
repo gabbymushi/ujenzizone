@@ -132,6 +132,10 @@ class Thread extends Component {
     socket.on("getComments", this.getComments);
     socket.on("changeData", this.changeData);
   }
+  componentWillUnmount() {
+    socket.off("getComments");
+    socket.off("changeData");
+  }
   // getComments() {
   //   let uri = "comments/" + this.thread_id;
   //   API.get(uri)
