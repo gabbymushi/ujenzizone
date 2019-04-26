@@ -103,6 +103,11 @@ class Thread extends Component {
     this.setState({
       currentPage: Number(e.target.id)
     });
+    const {comments, currentPage, commentsPerPage } = this.state;
+    console.log('currentPage',e.target.id)
+    const indexOfLastComment = e.target.id * commentsPerPage;
+    const indexOfFirstComment = indexOfLastComment - commentsPerPage;
+    socket.emit("initial_comments",{thread_id:this.thread_id,offset:indexOfFirstComment});
   };
   handleSubmit = e => {
     e.preventDefault();
@@ -139,7 +144,7 @@ class Thread extends Component {
     // this.getComments();
     const {comments, currentPage, commentsPerPage } = this.state;
     const indexOfLastComment = currentPage * commentsPerPage;
-    socket.emit("initial_comments",{thread_id:this.thread_id,offset:0});
+    socket.emit("initial_comments",{thread_id:this.thread_id,offset:indexOfLastComment});
     socket.on("getComments", this.getComments);
     socket.on("changeData", this.changeData);
   }
@@ -189,7 +194,7 @@ class Thread extends Component {
     //const currentComments = comments.slice(indexOfFirstComment, indexOfLastComment);
     // Logic for displaying page numbers
     const pageNumbers = [];
-    for (let i = 1; i <= Math.ceil(5 / commentsPerPage); i++) {
+    for (let i = 1; i <= Math.ceil(6 / commentsPerPage); i++) {
       pageNumbers.push(i);
     }
     const slides2 = items.map(item => {
@@ -307,6 +312,7 @@ class Thread extends Component {
                          tag="button"
                          key={number}
                          id={number}
+                         onClick={this.handlePagination}
                          >
                          {number}
                          </PaginationLink>
