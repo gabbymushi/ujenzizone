@@ -11,7 +11,8 @@ import {
   CarouselIndicators,
   CarouselItem,
   Col,
-  Row
+  Row,
+  Pagination
 } from "reactstrap";
 import socketIOClient from 'socket.io-client';
 import API from "../../utils/API";
@@ -257,6 +258,39 @@ class Thread extends Component {
                 ) : (
                   <p>No comments yet</p>
                 )}{" "}
+                <Pagination>
+              <PaginationItem>
+                <PaginationLink previous tag="button" />
+              </PaginationItem>
+              <PaginationItem>
+                <PaginationLink tag="button">
+                  1
+                </PaginationLink>
+              </PaginationItem>
+              <PaginationItem>
+                <PaginationLink tag="button">
+                  2
+                </PaginationLink>
+              </PaginationItem>
+              <PaginationItem>
+                <PaginationLink tag="button">
+                  3
+                </PaginationLink>
+              </PaginationItem>
+              <PaginationItem>
+                <PaginationLink tag="button">
+                  4
+                </PaginationLink>
+              </PaginationItem>
+              <PaginationItem>
+                <PaginationLink tag="button">
+                  5
+                </PaginationLink>
+              </PaginationItem>
+              <PaginationItem>
+                <PaginationLink next tag="button" />
+              </PaginationItem>
+            </Pagination>
                 <Input
                   onChange={this.handleComment}
                   value={this.state.comment}
