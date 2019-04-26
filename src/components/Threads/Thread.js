@@ -101,7 +101,9 @@ class Thread extends Component {
     this.setState({ comment: e.target.value });
   };
   handlePagination = e => {
-    this.setState({ comment: e.target.value });
+    this.setState({
+      currentPage: Number(e.target.id)
+    });
   };
   handleSubmit = e => {
     e.preventDefault();
