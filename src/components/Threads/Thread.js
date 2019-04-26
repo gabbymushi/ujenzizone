@@ -325,7 +325,12 @@ class Thread extends Component {
                 )}{" "}
                 <Pagination>
                   <PaginationItem key="prev">
-                    <PaginationLink previous tag="button" />
+                    <PaginationLink
+                      id={currentPage - 1}
+                      onClick={this.handlePagination}
+                      previous
+                      tag="button"
+                    />
                   </PaginationItem>
                   {pageNumbers.map(number => {
                     return (
