@@ -50,7 +50,7 @@ class Thread extends Component {
       comments: [],
       comment: "",
       currentPage: 1,
-      
+      commentsPerPage: 3
 
     };
     socket = socketIOClient(this.state.endpoint);
