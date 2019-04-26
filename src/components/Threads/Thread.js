@@ -140,8 +140,15 @@ class Thread extends Component {
       comments: comments
     });
   };
-  changeData = () => socket.emit("initial_comments", this.thread_id);
-
+  changeData = () => { 
+  const { currentPage, commentsPerPage } = this.state;
+  const indexOfLastComment = currentPage * commentsPerPage;
+  const indexOfFirstComment = indexOfLastComment - commentsPerPage;
+  socket.emit("initial_comments", {
+    thread_id: this.thread_id,
+    offset: indexOfFirstComment
+  });
+}
   componentDidMount() {
     this.getThread();
     // this.getComments();
