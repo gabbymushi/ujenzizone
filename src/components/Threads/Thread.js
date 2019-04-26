@@ -100,6 +100,9 @@ class Thread extends Component {
   handleComment = e => {
     this.setState({ comment: e.target.value });
   };
+  handlePagination = e => {
+    this.setState({ comment: e.target.value });
+  };
   handleSubmit = e => {
     e.preventDefault();
     let comment = {
