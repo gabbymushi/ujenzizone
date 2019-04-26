@@ -278,9 +278,9 @@ class Thread extends Component {
                 ) : (
                   <p>Loading..</p>
                 )}
-                {this.state.comments.length > 0 ? (
+                {comments.length > 0 ? (
                   // <p> {this.state.comments[0].comment} </p>
-                  this.state.comments.map((comment, index) => (
+                  comments.map((comment, index) => (
                     <Card key={index}>
                       <CardHeader>
                         <i className="fa fa-comment" />
