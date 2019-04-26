@@ -12,7 +12,8 @@ import {
   CarouselItem,
   Col,
   Row,
-  Pagination
+  Pagination,
+  PaginationItem
 } from "reactstrap";
 import socketIOClient from 'socket.io-client';
 import API from "../../utils/API";
