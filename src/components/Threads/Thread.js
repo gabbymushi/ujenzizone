@@ -184,6 +184,7 @@ class Thread extends Component {
     // });
      // Logic for displaying todos
      const indexOfLastComment = currentPage * commentsPerPage;
+     const indexOfFirstComment = indexOfLastComment - commentsPerPage;
     const slides2 = items.map(item => {
       return (
         <CarouselItem
