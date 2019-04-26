@@ -50,7 +50,8 @@ class Thread extends Component {
       comments: [],
       comment: "",
       currentPage: 1,
-      commentsPerPage: 2
+      commentsPerPage: 2,
+      totalComments: ''
     };
     socket = socketIOClient(this.state.endpoint);
     this.next = this.next.bind(this);
@@ -137,7 +138,8 @@ class Thread extends Component {
   getComments = data => {
     console.log(data);
     this.setState({
-      comments: data.comments
+      comments: data.comments,
+      totalComments:data.totalComments.count
     });
   };
   changeData = () => { 
@@ -193,7 +195,7 @@ class Thread extends Component {
       });
   }
   render() {
-    const { activeIndex, comments, currentPage, commentsPerPage } = this.state;
+    const { activeIndex, comments, totalComments, commentsPerPage } = this.state;
 
     // const slides = items.map((item) => {
     //   return (
@@ -208,7 +210,7 @@ class Thread extends Component {
     //const currentComments = comments.slice(indexOfFirstComment, indexOfLastComment);
     // Logic for displaying page numbers
     const pageNumbers = [];
-    for (let i = 1; i <= Math.ceil(6 / commentsPerPage); i++) {
+    for (let i = 1; i <= Math.ceil(totalComments / commentsPerPage); i++) {
       pageNumbers.push(i);
     }
     const slides2 = items.map(item => {
