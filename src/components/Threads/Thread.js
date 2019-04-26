@@ -11,9 +11,12 @@ import {
   CarouselIndicators,
   CarouselItem,
   Col,
-  Row
+  Row,
+  Pagination,
+  PaginationItem,
+  PaginationLink
 } from "reactstrap";
-import socketIOClient from 'socket.io-client';
+import socketIOClient from "socket.io-client";
 import API from "../../utils/API";
 const items = [
   {
@@ -41,12 +44,14 @@ class Thread extends Component {
     super(props);
     this.thread_id = this.props.match.params.thread;
     this.state = {
-      endpoint: 'http://localhost:4000/',
+      endpoint: "http://localhost:4000/",
       activeIndex: 0,
       thread: [],
       comments: [],
       comment: "",
-
+      currentPage: 1,
+      commentsPerPage: 2,
+      totalComments: ''
     };
     socket = socketIOClient(this.state.endpoint);
     this.next = this.next.bind(this);
@@ -95,21 +100,34 @@ class Thread extends Component {
   handleComment = e => {
     this.setState({ comment: e.target.value });
   };
+  handlePagination = e => {
+    this.setState({
+      currentPage: Number(e.target.id)
+    });
+    const { currentPage, commentsPerPage } = this.state;
+    console.log("currentPage", e.target.id);
+    const indexOfLastComment = e.target.id * commentsPerPage;
+    const indexOfFirstComment = indexOfLastComment - commentsPerPage;
+    socket.emit("initial_comments", {
+      thread_id: this.thread_id,
+      offset: indexOfFirstComment
+    });
+  };
   handleSubmit = e => {
     e.preventDefault();
     let comment = {
       comment: this.state.comment,
       thread_id: this.thread_id,
-      member_id: JSON.parse(localStorage.getItem('member')).member_id
+      member_id: JSON.parse(localStorage.getItem("member")).member_id
     };
-    socket.emit('saveComment',comment)
+    socket.emit("saveComment", comment);
     // API.post("comments/", comment)
     //   .then(response => {
     //     // console.log(response);
     //     console.log("👉 Returned data:", response);
-        this.setState({
-          comment: "",
-        });
+    this.setState({
+      comment: ""
+    });
     //     this.getComments();
     //   })
     //   .catch(error => {
@@ -117,18 +135,32 @@ class Thread extends Component {
     //     console.log(`😱 Axios request failed: ${error}`);
     //   });
   };
-  getComments = comments => {
-    console.log(comments);
+  getComments = data => {
+    console.log(data);
     this.setState({
-              comments:comments
-            });
+      comments: data.comments,
+      totalComments:data.totalComments.count
+    });
   };
-  changeData = () => socket.emit("initial_comments",this.thread_id);
-
+  changeData = () => { 
+  const { currentPage, commentsPerPage } = this.state;
+  const indexOfLastComment = currentPage * commentsPerPage;
+  const indexOfFirstComment = indexOfLastComment - commentsPerPage;
+  socket.emit("initial_comments", {
+    thread_id: this.thread_id,
+    offset: indexOfFirstComment
+  });
+}
   componentDidMount() {
     this.getThread();
     // this.getComments();
-    socket.emit("initial_comments",this.thread_id);
+    const { currentPage, commentsPerPage } = this.state;
+    const indexOfLastComment = currentPage * commentsPerPage;
+    const indexOfFirstComment = indexOfLastComment - commentsPerPage;
+    socket.emit("initial_comments", {
+      thread_id: this.thread_id,
+      offset: indexOfFirstComment
+    });
     socket.on("getComments", this.getComments);
     socket.on("changeData", this.changeData);
   }
@@ -150,20 +182,20 @@ class Thread extends Component {
   //     });
   // }
   getThread() {
-    let uri = "threads/" + this.thread_id +"/thread";
+    let uri = "threads/" + this.thread_id + "/thread";
     API.get(uri)
       .then(response => {
         this.setState({
           thread: response.data
         });
-         console.log(this.state.thread);
+        console.log(this.state.thread);
       })
       .catch(error => {
         console.log(error);
       });
   }
   render() {
-    const { activeIndex } = this.state;
+    const { activeIndex, comments, totalComments, commentsPerPage } = this.state;
 
     // const slides = items.map((item) => {
     //   return (
@@ -172,6 +204,15 @@ class Thread extends Component {
     //     </CarouselItem>
     //   );
     // });
+    // Logic for displaying todos
+    // const indexOfLastComment = currentPage * commentsPerPage;
+    // const indexOfFirstComment = indexOfLastComment - commentsPerPage;
+    //const currentComments = comments.slice(indexOfFirstComment, indexOfLastComment);
+    // Logic for displaying page numbers
+    const pageNumbers = [];
+    for (let i = 1; i <= Math.ceil(totalComments / commentsPerPage); i++) {
+      pageNumbers.push(i);
+    }
     const slides2 = items.map(item => {
       return (
         <CarouselItem
@@ -212,7 +253,18 @@ class Thread extends Component {
             <Card>
               <CardHeader>
                 {/* <i className="fa fa-align-justify" /> */}
-                <strong>  {this.state.thread.length > 0 ? (<p> Posted by {this.state.thread[0].member.first_name}: {this.state.thread[0].title}</p>):(<p>Loading..</p>)}</strong>
+                <strong>
+                  {" "}
+                  {this.state.thread.length > 0 ? (
+                    <p>
+                      {" "}
+                      Posted by {this.state.thread[0].member.first_name}:{" "}
+                      {this.state.thread[0].title}
+                    </p>
+                  ) : (
+                    <p>Loading..</p>
+                  )}
+                </strong>
               </CardHeader>
               <CardBody>
                 <Carousel
@@ -237,26 +289,55 @@ class Thread extends Component {
                     onClickHandler={this.next}
                   />
                 </Carousel>
-                     
-             {this.state.thread.length > 0 ? (<p> {this.state.thread[0].body}</p>):(<p>Loading..</p>)}
-                   
-                {this.state.comments.length > 0 ? (
+                {this.state.thread.length > 0 ? (
+                  <p> {this.state.thread[0].body}</p>
+                ) : (
+                  <p>Loading..</p>
+                )}
+                {comments.length > 0 ? (
                   // <p> {this.state.comments[0].comment} </p>
-                  this.state.comments.map((comment, index) =>
+                  comments.map((comment, index) => (
                     <Card key={index}>
-                        <CardHeader>
-                            <i className="fa fa-comment"></i><strong><a href={`#/threads/${this.props.match.params.id}/${comment.member_id}`}>{comment.member.first_name}.</a></strong>
-                            <small> </small>
-                        </CardHeader>
-                        <CardBody>
-                            {comment.comment} 
-                        </CardBody>
+                      <CardHeader>
+                        <i className="fa fa-comment" />
+                        <strong>
+                          <a
+                            href={`#/threads/${this.props.match.params.id}/${
+                              comment.member_id
+                            }`}
+                          >
+                            {comment.member.first_name}.
+                          </a>
+                        </strong>
+                        <small> </small>
+                      </CardHeader>
+                      <CardBody>{comment.comment}</CardBody>
                     </Card>
-                )
-                
+                  ))
                 ) : (
                   <p>No comments yet</p>
                 )}{" "}
+                <Pagination>
+                  <PaginationItem key="prev">
+                    <PaginationLink   previous tag="button" />
+                  </PaginationItem>
+                  {pageNumbers.map(number => {
+                    return (
+                      <PaginationItem  key={number}>
+                        <PaginationLink
+                          tag="button"
+                          id={number}
+                          onClick={this.handlePagination}
+                        >
+                          {number}
+                        </PaginationLink>
+                      </PaginationItem>
+                    );
+                  })}
+                  <PaginationItem key="next">
+                    <PaginationLink  next tag="button" />
+                  </PaginationItem>
+                </Pagination>
                 <Input
                   onChange={this.handleComment}
                   value={this.state.comment}
