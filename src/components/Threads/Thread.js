@@ -13,7 +13,8 @@ import {
   Col,
   Row,
   Pagination,
-  PaginationItem
+  PaginationItem,
+  PaginationLink
 } from "reactstrap";
 import socketIOClient from 'socket.io-client';
 import API from "../../utils/API";
