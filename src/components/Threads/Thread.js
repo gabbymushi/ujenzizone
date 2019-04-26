@@ -103,11 +103,14 @@ class Thread extends Component {
     this.setState({
       currentPage: Number(e.target.id)
     });
-    const {comments, currentPage, commentsPerPage } = this.state;
-    console.log('currentPage',e.target.id)
+    const { currentPage, commentsPerPage } = this.state;
+    console.log("currentPage", e.target.id);
     const indexOfLastComment = e.target.id * commentsPerPage;
     const indexOfFirstComment = indexOfLastComment - commentsPerPage;
-    socket.emit("initial_comments",{thread_id:this.thread_id,offset:indexOfFirstComment});
+    socket.emit("initial_comments", {
+      thread_id: this.thread_id,
+      offset: indexOfFirstComment
+    });
   };
   handleSubmit = e => {
     e.preventDefault();
@@ -142,9 +145,13 @@ class Thread extends Component {
   componentDidMount() {
     this.getThread();
     // this.getComments();
-    const {comments, currentPage, commentsPerPage } = this.state;
+    const { currentPage, commentsPerPage } = this.state;
     const indexOfLastComment = currentPage * commentsPerPage;
-    socket.emit("initial_comments",{thread_id:this.thread_id,offset:indexOfLastComment});
+    const indexOfFirstComment = indexOfLastComment - commentsPerPage;
+    socket.emit("initial_comments", {
+      thread_id: this.thread_id,
+      offset: indexOfFirstComment
+    });
     socket.on("getComments", this.getComments);
     socket.on("changeData", this.changeData);
   }
@@ -189,8 +196,8 @@ class Thread extends Component {
     //   );
     // });
     // Logic for displaying todos
-    const indexOfLastComment = currentPage * commentsPerPage;
-    const indexOfFirstComment = indexOfLastComment - commentsPerPage;
+    // const indexOfLastComment = currentPage * commentsPerPage;
+    // const indexOfFirstComment = indexOfLastComment - commentsPerPage;
     //const currentComments = comments.slice(indexOfFirstComment, indexOfLastComment);
     // Logic for displaying page numbers
     const pageNumbers = [];
@@ -309,13 +316,13 @@ class Thread extends Component {
                     return (
                       <PaginationItem>
                         <PaginationLink
-                         tag="button"
-                         key={number}
-                         id={number}
-                         onClick={this.handlePagination}
-                         >
-                         {number}
-                         </PaginationLink>
+                          tag="button"
+                          key={number}
+                          id={number}
+                          onClick={this.handlePagination}
+                        >
+                          {number}
+                        </PaginationLink>
                       </PaginationItem>
                     );
                   })}
