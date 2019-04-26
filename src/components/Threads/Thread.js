@@ -134,10 +134,10 @@ class Thread extends Component {
     //     console.log(`😱 Axios request failed: ${error}`);
     //   });
   };
-  getComments = comments => {
-    console.log(comments);
+  getComments = data => {
+    console.log(data);
     this.setState({
-      comments: comments
+      comments: data.comments
     });
   };
   changeData = () => { 
@@ -316,15 +316,14 @@ class Thread extends Component {
                   <p>No comments yet</p>
                 )}{" "}
                 <Pagination>
-                  <PaginationItem>
-                    <PaginationLink previous tag="button" />
+                  <PaginationItem key="prev">
+                    <PaginationLink   previous tag="button" />
                   </PaginationItem>
                   {pageNumbers.map(number => {
                     return (
-                      <PaginationItem>
+                      <PaginationItem  key={number}>
                         <PaginationLink
                           tag="button"
-                          key={number}
                           id={number}
                           onClick={this.handlePagination}
                         >
@@ -333,8 +332,8 @@ class Thread extends Component {
                       </PaginationItem>
                     );
                   })}
-                  <PaginationItem>
-                    <PaginationLink next tag="button" />
+                  <PaginationItem key="next">
+                    <PaginationLink  next tag="button" />
                   </PaginationItem>
                 </Pagination>
                 <Input
