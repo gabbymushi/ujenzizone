@@ -58,7 +58,7 @@ class Forums extends Component {
         super(props);
         this.state = {
             modal: false,
-            value: '',
+            // value: '',
             forums: [],
             primary: false,
             forum_name: "",
