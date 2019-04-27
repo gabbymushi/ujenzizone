@@ -139,7 +139,7 @@ class Thread extends Component {
     console.log(data);
     this.setState({
       comments: data.comments,
-      totalComments: data.totalComments.count
+      totalComments: data.totalComments
     });
   };
   changeData = () => {
