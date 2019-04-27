@@ -104,7 +104,7 @@ class Thread extends Component {
     this.setState({
       currentPage: Number(e.target.id)
     });
-    const { currentPage, commentsPerPage } = this.state;
+    const {commentsPerPage } = this.state;
     console.log("currentPage", e.target.id);
     const indexOfLastComment = e.target.id * commentsPerPage;
     const indexOfFirstComment = indexOfLastComment - commentsPerPage;
