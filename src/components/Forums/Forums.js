@@ -168,7 +168,7 @@ class Forums extends Component {
                                     onChange={this.handleName}
                                     value={this.state.forum_name}
                                     type="text" id="text-input"
-                                    name="ledger" placeholder="Forum Name"
+                                    name="forum_name" placeholder="Forum Name"
                                     required />
                                 {/*<FormText color="muted">This is a help text</FormText>*/}
                             </Col>
