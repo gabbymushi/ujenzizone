@@ -58,7 +58,7 @@ class Forums extends Component {
         super(props);
         this.state = {
             modal: false,
-            value: '',
+            // value: '',
             forums: [],
             primary: false,
             forum_name: "",
@@ -73,7 +73,7 @@ class Forums extends Component {
         });
     }
 
-    handleForumName = (e) => {
+    handleName = (e) => {
         this.setState({ forum_name: e.target.value });
     }
     handleDescription = (e) => {
@@ -165,10 +165,10 @@ class Forums extends Component {
                             </Col>
                             <Col xs="12" md="9">
                                 <Input
-                                    onChange={this.handleForumName}
+                                    onChange={this.handleName}
                                     value={this.state.forum_name}
                                     type="text" id="text-input"
-                                    name="ledger" placeholder="Forum Name"
+                                    name="forum_name" placeholder="Forum Name"
                                     required />
                                 {/*<FormText color="muted">This is a help text</FormText>*/}
                             </Col>
