@@ -86,7 +86,7 @@ class Home extends Component {
         });
         const {commentsPerPage } = this.state;
         // console.log("currentPage", e.target.id);
-        // const indexOfLastComment = e.target.id * commentsPerPage;
+        const indexOfLastThread = e.target.id * commentsPerPage;
         // const indexOfFirstComment = indexOfLastComment - commentsPerPage;
      
       };
