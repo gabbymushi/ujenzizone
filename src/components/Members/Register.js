@@ -47,7 +47,7 @@ class Register extends Component {
       //     user_name: '',
           last_name: '',
       //     gender: '',
-      //     email: '',
+          email: '',
       //     password: '',
       
       });
