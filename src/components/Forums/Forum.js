@@ -63,6 +63,7 @@ class Home extends Component {
     let uri = "threads/" + this.forum_id + "/" + offset;
     API.get(uri)
       .then(response => {
+          console.log('offese',response)
         this.setState({
           threads: response.data,
           totalThreads: response.totalThreads
