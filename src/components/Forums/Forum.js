@@ -97,7 +97,10 @@ class Home extends Component {
         //     body: ''
 
         // });
-        this.getThreads();
+        const { threadsPerPage,currentPage } = this.state;
+        const indexOfLastThread = currentPage * threadsPerPage;
+        const indexOfFirstThread = indexOfLastThread - threadsPerPage;
+        this.getThreads(indexOfFirstThread);
       })
       .catch(error => {
         //console.log(error.request);
