@@ -84,10 +84,10 @@ class Home extends Component {
         this.setState({
           currentPage: Number(e.target.id)
         });
-        const {commentsPerPage } = this.state;
+        const {threadsPerPage } = this.state;
         // console.log("currentPage", e.target.id);
-        const indexOfLastThread = e.target.id * commentsPerPage;
-        // const indexOfFirstComment = indexOfLastComment - commentsPerPage;
+        const indexOfLastThread = e.target.id * threadsPerPage;
+        const indexOfFirstThread = indexOfLastThread - threadsPerPage;
      
       };
     render() {
