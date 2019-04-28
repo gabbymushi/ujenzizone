@@ -81,7 +81,10 @@ class Home extends Component {
 
     }
     render() {
-        // const forum_name=this.state.threads[0].forum.forum_name;
+        const {
+            currentPage,
+           
+          } = this.state;
         return (
             <div className="animated fadeIn">
                 <Row>
