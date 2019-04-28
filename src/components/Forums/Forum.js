@@ -15,6 +15,8 @@ class Home extends Component {
             modal: false,
             primary: false,
             dropdownOpen: false,
+            currentPage: 1,
+            
         };
         this.togglePrimary = this.togglePrimary.bind(this);
     }
