@@ -86,6 +86,11 @@ class Home extends Component {
             totalThreads,
             threadsPerPage
           } = this.state;
+             // Logic for displaying page numbers
+    const pageNumbers = [];
+    for (let i = 1; i <= Math.ceil(totalThreads / threadsPerPage); i++) {
+      pageNumbers.push(i);
+    }
         return (
             <div className="animated fadeIn">
                 <Row>
