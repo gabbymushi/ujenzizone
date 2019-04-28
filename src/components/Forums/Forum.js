@@ -52,9 +52,9 @@ class Home extends Component {
     }
   }
   componentDidMount() {
-    this.getForums();
+    this.getThreads();
   }
-  getForums(offset) {
+  getThreads(offset) {
     let uri = "threads/" + this.forum_id + "/" + offset;
     API.get(uri)
       .then(response => {
@@ -92,7 +92,7 @@ class Home extends Component {
         //     body: ''
 
         // });
-        this.getForums();
+        this.getThreads();
       })
       .catch(error => {
         //console.log(error.request);
