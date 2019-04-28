@@ -66,7 +66,7 @@ class Home extends Component {
           console.log('offese',response)
         this.setState({
           threads: response.data.threads,
-          totalThreads: response.totalThreads
+          totalThreads: response.data.totalThreads
         });
         console.log(this.state.threads);
         return;
