@@ -42,15 +42,15 @@ class Register extends Component {
      API.post('auth/register', member).then((response) => {
      // console.log(response);
      console.log('👉 Returned data:', response);
-      // this.setState({
-      //     first_name: '',
+      this.setState({
+          first_name: '',
       //     user_name: '',
-      //     last_name: '',
+          last_name: '',
       //     gender: '',
-      //     email: '',
-      //     password: '',
+          email: '',
+          password: '',
       
-      // });
+      });
   }).catch((error) => {
       //console.log(error.request);
       console.log(`😱 Axios request failed: ${error}`);
