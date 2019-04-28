@@ -81,9 +81,9 @@ class Home extends Component {
 
     }
     handlePagination = e => {
-        // this.setState({
-        //   currentPage: Number(e.target.id)
-        // });
+        this.setState({
+          currentPage: Number(e.target.id)
+        });
         // const {commentsPerPage } = this.state;
         // console.log("currentPage", e.target.id);
         // const indexOfLastComment = e.target.id * commentsPerPage;
