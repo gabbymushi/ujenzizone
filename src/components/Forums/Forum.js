@@ -122,6 +122,15 @@ class Home extends Component {
                     />
                   </PaginationItem>
 
+
+                  <PaginationItem key="next">
+                    <PaginationLink
+                    //   id={currentPage + 1}
+                      onClick={this.handlePagination}
+                      next
+                      tag="button"
+                    />
+                  </PaginationItem>
                 </Pagination>
                     </Col>
                 </Row>
