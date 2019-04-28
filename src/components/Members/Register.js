@@ -45,7 +45,7 @@ class Register extends Component {
       this.setState({
           first_name: '',
       //     user_name: '',
-      //     last_name: '',
+          last_name: '',
       //     gender: '',
       //     email: '',
       //     password: '',
