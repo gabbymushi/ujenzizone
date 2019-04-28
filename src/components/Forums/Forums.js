@@ -57,12 +57,11 @@ class Forums extends Component {
     constructor(props) {
         super(props);
         this.state = {
-            modal: false,
-            // value: '',
-            forums: [],
-            primary: false,
             forum_name: "",
             description: "",
+            modal: false,
+            forums: [],
+            primary: false,
             dropdownOpen: false
         };
         this.togglePrimary = this.togglePrimary.bind(this);
@@ -167,8 +166,10 @@ class Forums extends Component {
                                 <Input
                                     onChange={this.handleName}
                                     value={this.state.forum_name}
-                                    type="text" id="text-input"
-                                    name="forum_name" placeholder="Forum Name"
+                                    type="text"
+                                     id="text-input"
+                                    name="forum_name" 
+                                    placeholder="Forum Name"
                                     required />
                                 {/*<FormText color="muted">This is a help text</FormText>*/}
                             </Col>
