@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { Button, Card, CardBody, CardHeader, Col, Modal, ModalBody, ModalFooter, ModalHeader, FormGroup, Label, Input, Row, TabContent, TabPane } from 'reactstrap';
+import { Pagination,Button, Card, CardBody, CardHeader, Col, Modal, ModalBody, ModalFooter, ModalHeader, FormGroup, Label, Input, Row, TabContent, TabPane } from 'reactstrap';
 import API from '../../utils/API';
 class Home extends Component {
 
@@ -14,7 +14,7 @@ class Home extends Component {
             activeTab: 1,
             modal: false,
             primary: false,
-            dropdownOpen: false
+            dropdownOpen: false,
         };
         this.togglePrimary = this.togglePrimary.bind(this);
     }
