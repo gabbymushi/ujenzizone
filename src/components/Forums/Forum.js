@@ -107,6 +107,7 @@ class Home extends Component {
     // console.log("currentPage", e.target.id);
     const indexOfLastThread = e.target.id * threadsPerPage;
     const indexOfFirstThread = indexOfLastThread - threadsPerPage;
+    this.getThreads(indexOfFirstThread);
   };
   render() {
     const { currentPage, totalThreads, threadsPerPage } = this.state;
