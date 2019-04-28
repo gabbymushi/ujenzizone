@@ -83,7 +83,8 @@ class Home extends Component {
     render() {
         const {
             currentPage,
-           
+            totalThreads,
+            
           } = this.state;
         return (
             <div className="animated fadeIn">
