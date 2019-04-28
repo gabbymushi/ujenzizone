@@ -134,8 +134,19 @@ class Home extends Component {
                       tag="button"
                     />
                   </PaginationItem>
-
-
+                  {pageNumbers.map(number => {
+                    return (
+                      <PaginationItem key={number}>
+                        <PaginationLink
+                          tag="button"
+                          id={number}
+                          onClick={this.handlePagination}
+                        >
+                          {number}
+                        </PaginationLink>
+                      </PaginationItem>
+                    );
+                  })}
                   <PaginationItem key="next">
                     <PaginationLink
                     //   id={currentPage + 1}
