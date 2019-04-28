@@ -17,6 +17,7 @@ class Home extends Component {
             dropdownOpen: false,
             currentPage: 1,
             threadsPerPage: 2,
+            totalThreads: ""
            
         };
         this.togglePrimary = this.togglePrimary.bind(this);
