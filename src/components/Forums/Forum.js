@@ -52,7 +52,12 @@ class Home extends Component {
     }
   }
   componentDidMount() {
-    this.getThreads();
+    const { threadsPerPage,currentPage } = this.state;
+    // console.log("currentPage", e.target.id);
+    const indexOfLastThread = currentPage * threadsPerPage;
+    const indexOfFirstThread = indexOfLastThread - threadsPerPage;
+    this.getThreads(indexOfFirstThread);
+
   }
   getThreads(offset) {
     let uri = "threads/" + this.forum_id + "/" + offset;
