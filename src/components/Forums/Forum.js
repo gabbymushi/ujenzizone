@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { Pagination,Button, Card, CardBody, CardHeader, Col, Modal, ModalBody, ModalFooter, ModalHeader, FormGroup, Label, Input, Row, TabContent, TabPane } from 'reactstrap';
+import { PaginationItem,Pagination,Button, Card, CardBody, CardHeader, Col, Modal, ModalBody, ModalFooter, ModalHeader, FormGroup, Label, Input, Row, TabContent, TabPane } from 'reactstrap';
 import API from '../../utils/API';
 class Home extends Component {
 
