@@ -113,6 +113,14 @@ class Home extends Component {
                         )
                         }
                 <Pagination>
+                <PaginationItem key="prev">
+                    <PaginationLink
+                    //   id={currentPage - 1}
+                      onClick={this.handlePagination}
+                      previous
+                      tag="button"
+                    />
+                  </PaginationItem>
 
                 </Pagination>
                     </Col>
