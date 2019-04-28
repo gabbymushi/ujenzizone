@@ -84,7 +84,7 @@ class Home extends Component {
         const {
             currentPage,
             totalThreads,
-            
+            threadsPerPage
           } = this.state;
         return (
             <div className="animated fadeIn">
