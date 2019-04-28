@@ -64,7 +64,8 @@ class Home extends Component {
     API.get(uri)
       .then(response => {
         this.setState({
-          threads: response.data
+          threads: response.data,
+          totalThreads: response.totalThreads
         });
         console.log(this.state.threads);
         return;
