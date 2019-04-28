@@ -112,6 +112,9 @@ class Home extends Component {
                             </Card>
                         )
                         }
+                <Pagination>
+
+                </Pagination>
                     </Col>
                 </Row>
                 <Modal isOpen={this.state.primary} toggle={this.togglePrimary}
