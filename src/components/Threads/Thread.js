@@ -182,7 +182,7 @@ class Thread extends Component {
   //     });
   // }
   getThread() {
-    let uri = "threads/" + this.thread_id + "/thread";
+    let uri = "threads/" + this.thread_id;
     API.get(uri)
       .then(response => {
         this.setState({
