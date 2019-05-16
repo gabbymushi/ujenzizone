@@ -60,7 +60,7 @@ class Home extends Component {
 
   }
   getThreads(offset) {
-    let uri = "threads/" + this.forum_id + "/" + offset;
+    let uri = "threads/" + this.forum_id + "/offset/" + offset;
     API.get(uri)
       .then(response => {
           console.log('offese',response)
