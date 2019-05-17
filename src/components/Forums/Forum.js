@@ -63,7 +63,7 @@ class Home extends Component {
     let uri = "threads/" + this.forum_id + "/offset/" + offset;
     API.get(uri)
       .then(response => {
-          console.log('offese',response)
+          // console.log('offese',response)
         this.setState({
           threads: response.data.threads,
           totalThreads: response.data.totalThreads
@@ -84,16 +84,24 @@ class Home extends Component {
   handleSubmit = e => {
     e.preventDefault();
     //let forum_id = this.props.match.params.id;
-    let thread = {
-      title: this.state.title,
-      body: this.state.body,
-      forum_id: this.forum_id
-    };
-    console.log("👉 Returned data:", thread);
-    API.post("threads/", thread)
+    // let thread = {
+    //   title: this.state.title,
+    //   body: this.state.body,
+    //   forum_id: this.forum_id
+    // };
+    const data=new FormData();
+    data.append('title',this.state.title);
+    data.append('body',this.state.body);
+    data.append('forum_id',this.forum_id);
+    //console.log("👉 Form data:", data);
+    //debugger;
+  //   const config = {     
+  //     headers: { 'content-type': 'multipart/form-data' }
+  // }
+    API.post("threads/", data)
       .then(response => {
-        // console.log(response);
-        console.log("👉 Returned data:", response);
+        console.log(response);
+        //console.log("👉 Returned data:", response);
         // this.setState({
         //     title: '',
         //     body: ''
