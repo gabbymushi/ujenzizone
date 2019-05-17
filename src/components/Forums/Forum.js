@@ -28,6 +28,7 @@ class Home extends Component {
     this.state = {
       title: "",
       body: "",
+      file:"",
       threads: [],
       activeTab: 1,
       modal: false,
@@ -275,10 +276,10 @@ class Home extends Component {
               <Col xs="12" md="9">
                 <Input
                   onChange={this.handleUpload}
-                  value={this.state.image}
+                  value={this.state.file}
                   type="file"
                   id="text-input"
-                  name="image"
+                  name="file"
                   required
                 />
                 {/*<FormText color="muted">This is a help text</FormText>*/}
