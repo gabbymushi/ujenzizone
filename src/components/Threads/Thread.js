@@ -18,35 +18,36 @@ import {
 } from "reactstrap";
 import socketIOClient from "socket.io-client";
 import API from "../../utils/API";
-const items = [
-  {
-    src:
-      "http://localhost:4000/uploads/2019-05-17T19:22:53.573Z_MG_5561.JPG",
-    altText: "Slide 1",
-    caption: "Slide 1"
-  },
-  {
-    src:
-      "data:image/svg+xml;charset=UTF-8,%3Csvg%20width%3D%22800%22%20height%3D%22400%22%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20viewBox%3D%220%200%20800%20400%22%20preserveAspectRatio%3D%22none%22%3E%3Cdefs%3E%3Cstyle%20type%3D%22text%2Fcss%22%3E%23holder_15ba800aa20%20text%20%7B%20fill%3A%23444%3Bfont-weight%3Anormal%3Bfont-family%3AHelvetica%2C%20monospace%3Bfont-size%3A40pt%20%7D%20%3C%2Fstyle%3E%3C%2Fdefs%3E%3Cg%20id%3D%22holder_15ba800aa20%22%3E%3Crect%20width%3D%22800%22%20height%3D%22400%22%20fill%3D%22%23666%22%3E%3C%2Frect%3E%3Cg%3E%3Ctext%20x%3D%22247.3203125%22%20y%3D%22218.3%22%3ESecond%20slide%3C%2Ftext%3E%3C%2Fg%3E%3C%2Fg%3E%3C%2Fsvg%3E",
-    altText: "Slide 2",
-    caption: "Slide 2"
-  },
-  {
-    src:
-      "data:image/svg+xml;charset=UTF-8,%3Csvg%20width%3D%22800%22%20height%3D%22400%22%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20viewBox%3D%220%200%20800%20400%22%20preserveAspectRatio%3D%22none%22%3E%3Cdefs%3E%3Cstyle%20type%3D%22text%2Fcss%22%3E%23holder_15ba800aa21%20text%20%7B%20fill%3A%23333%3Bfont-weight%3Anormal%3Bfont-family%3AHelvetica%2C%20monospace%3Bfont-size%3A40pt%20%7D%20%3C%2Fstyle%3E%3C%2Fdefs%3E%3Cg%20id%3D%22holder_15ba800aa21%22%3E%3Crect%20width%3D%22800%22%20height%3D%22400%22%20fill%3D%22%23555%22%3E%3C%2Frect%3E%3Cg%3E%3Ctext%20x%3D%22277%22%20y%3D%22218.3%22%3EThird%20slide%3C%2Ftext%3E%3C%2Fg%3E%3C%2Fg%3E%3C%2Fsvg%3E",
-    altText: "Slide 3",
-    caption: "Slide 3"
-  }
-];
+// const items = [
+//   {
+//     src:
+//       "http://localhost:4000/uploads/2019-05-17T19:22:53.573Z_MG_5561.JPG",
+//     altText: "Slide 1",
+//     caption: "Slide 1"
+//   },
+//   {
+//     src:
+//       "data:image/svg+xml;charset=UTF-8,%3Csvg%20width%3D%22800%22%20height%3D%22400%22%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20viewBox%3D%220%200%20800%20400%22%20preserveAspectRatio%3D%22none%22%3E%3Cdefs%3E%3Cstyle%20type%3D%22text%2Fcss%22%3E%23holder_15ba800aa20%20text%20%7B%20fill%3A%23444%3Bfont-weight%3Anormal%3Bfont-family%3AHelvetica%2C%20monospace%3Bfont-size%3A40pt%20%7D%20%3C%2Fstyle%3E%3C%2Fdefs%3E%3Cg%20id%3D%22holder_15ba800aa20%22%3E%3Crect%20width%3D%22800%22%20height%3D%22400%22%20fill%3D%22%23666%22%3E%3C%2Frect%3E%3Cg%3E%3Ctext%20x%3D%22247.3203125%22%20y%3D%22218.3%22%3ESecond%20slide%3C%2Ftext%3E%3C%2Fg%3E%3C%2Fg%3E%3C%2Fsvg%3E",
+//     altText: "Slide 2",
+//     caption: "Slide 2"
+//   },
+//   {
+//     src:
+//       "data:image/svg+xml;charset=UTF-8,%3Csvg%20width%3D%22800%22%20height%3D%22400%22%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20viewBox%3D%220%200%20800%20400%22%20preserveAspectRatio%3D%22none%22%3E%3Cdefs%3E%3Cstyle%20type%3D%22text%2Fcss%22%3E%23holder_15ba800aa21%20text%20%7B%20fill%3A%23333%3Bfont-weight%3Anormal%3Bfont-family%3AHelvetica%2C%20monospace%3Bfont-size%3A40pt%20%7D%20%3C%2Fstyle%3E%3C%2Fdefs%3E%3Cg%20id%3D%22holder_15ba800aa21%22%3E%3Crect%20width%3D%22800%22%20height%3D%22400%22%20fill%3D%22%23555%22%3E%3C%2Frect%3E%3Cg%3E%3Ctext%20x%3D%22277%22%20y%3D%22218.3%22%3EThird%20slide%3C%2Ftext%3E%3C%2Fg%3E%3C%2Fg%3E%3C%2Fsvg%3E",
+//     altText: "Slide 3",
+//     caption: "Slide 3"
+//   }
+// ];
 var socket;
 class Thread extends Component {
   constructor(props) {
     super(props);
     this.thread_id = this.props.match.params.thread;
+    this.items = [];
     this.state = {
       endpoint: "http://localhost:4000/",
       activeIndex: 0,
-      thread: [],
+      thread: '',
       comments: [],
       comment: "",
       currentPage: 1,
@@ -71,7 +72,7 @@ class Thread extends Component {
   next() {
     if (this.animating) return;
     const nextIndex =
-      this.state.activeIndex === items.length - 1
+      this.state.activeIndex === this.items.length - 1
         ? 0
         : this.state.activeIndex + 1;
     this.setState({
@@ -83,7 +84,7 @@ class Thread extends Component {
     if (this.animating) return;
     const nextIndex =
       this.state.activeIndex === 0
-        ? items.length - 1
+        ? this.items.length - 1
         : this.state.activeIndex - 1;
     this.setState({
       activeIndex: nextIndex
@@ -104,7 +105,7 @@ class Thread extends Component {
     this.setState({
       currentPage: Number(e.target.id)
     });
-    const {commentsPerPage } = this.state;
+    const { commentsPerPage } = this.state;
     console.log("currentPage", e.target.id);
     const indexOfLastComment = e.target.id * commentsPerPage;
     const indexOfFirstComment = indexOfLastComment - commentsPerPage;
@@ -188,7 +189,16 @@ class Thread extends Component {
         this.setState({
           thread: response.data
         });
-        console.log(this.state.thread);
+        // console.log(this.state.thread);
+        response.data.file.forEach(file => {
+          const item = {
+            src: "http://localhost:4000/uploads/" + file.file_name,
+            altText: "Slide 1",
+            caption: "Slide 1"
+          };
+          this.items.push(item);
+        });
+        console.log(response.data)
       })
       .catch(error => {
         console.log(error);
@@ -219,7 +229,7 @@ class Thread extends Component {
     for (let i = 1; i <= Math.ceil(totalComments / commentsPerPage); i++) {
       pageNumbers.push(i);
     }
-    const slides2 = items.map(item => {
+    const slides2 = this.items.map(item => {
       return (
         <CarouselItem
           onExiting={this.onExiting}
@@ -261,11 +271,11 @@ class Thread extends Component {
                 {/* <i className="fa fa-align-justify" /> */}
                 <strong>
                   {" "}
-                  {this.state.thread.length > 0 ? (
+                  {typeof this.state.thread.member!=="undefined" ? (
                     <p>
                       {" "}
-                      Posted by {this.state.thread[0].member.first_name}:{" "}
-                      {this.state.thread[0].title}
+                      Posted by {this.state.thread.member.first_name}:{" "}
+                      {this.state.thread.title}
                     </p>
                   ) : (
                     <p>Loading..</p>
@@ -279,7 +289,7 @@ class Thread extends Component {
                   previous={this.previous}
                 >
                   <CarouselIndicators
-                    items={items}
+                    items={this.items}
                     activeIndex={activeIndex}
                     onClickHandler={this.goToIndex}
                   />
@@ -295,8 +305,8 @@ class Thread extends Component {
                     onClickHandler={this.next}
                   />
                 </Carousel>
-                {this.state.thread.length > 0 ? (
-                  <p> {this.state.thread[0].body}</p>
+                {typeof this.state.thread.body!=="undefined" ? (
+                  <p> {this.state.thread.body}</p>
                 ) : (
                   <p>Loading..</p>
                 )}
