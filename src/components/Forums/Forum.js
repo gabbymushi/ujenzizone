@@ -82,6 +82,10 @@ class Home extends Component {
   handleBody = e => {
     this.setState({ body: e.target.value });
   };
+  handleUpload = e => {
+    console.log(e.target.files[0])
+    this.setState({ file: e.target.files[0] });
+  };
   handleSubmit = e => {
     e.preventDefault();
     //let forum_id = this.props.match.params.id;
@@ -94,6 +98,8 @@ class Home extends Component {
     data.append('title',this.state.title);
     data.append('body',this.state.body);
     data.append('forum_id',this.forum_id);
+    data.append('file',this.state.file);
+    data.append('member_id',JSON.parse(localStorage.getItem("member")).member_id);
     //console.log("👉 Form data:", data);
     //debugger;
   //   const config = {     
@@ -103,11 +109,12 @@ class Home extends Component {
       .then(response => {
         console.log(response);
         //console.log("👉 Returned data:", response);
-        // this.setState({
-        //     title: '',
-        //     body: ''
+        this.setState({
+            title: '',
+            body: '',
+            file:''
 
-        // });
+        });
         const { threadsPerPage,currentPage } = this.state;
         const indexOfLastThread = currentPage * threadsPerPage;
         const indexOfFirstThread = indexOfLastThread - threadsPerPage;
@@ -276,7 +283,6 @@ class Home extends Component {
               <Col xs="12" md="9">
                 <Input
                   onChange={this.handleUpload}
-                  value={this.state.file}
                   type="file"
                   id="text-input"
                   name="file"
