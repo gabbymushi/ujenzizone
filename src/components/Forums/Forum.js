@@ -282,6 +282,7 @@ class Home extends Component {
               </Col>
               <Col xs="12" md="9">
                 <Input
+                   multiple
                   onChange={this.handleUpload}
                   type="file"
                   id="text-input"
