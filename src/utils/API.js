@@ -1,12 +1,16 @@
 import React from 'react';
 import axios from 'axios';
 import { Redirect} from 'react-router-dom';
-const api = axios.create({
+const API = axios.create({
     baseURL: "http://localhost:4000/api/v1/",
     headers: {
         // 'Access-Control-Allow-Headers': 'x-access-token',
-        'Authorization': 'Bearer ' + window.localStorage.getItem('token'),
-       'Content-Type': 'application/json; multipart/form-data;charset=utf-8;'
+        'Authorization': {
+            toString () {
+              return `Bearer ${localStorage.getItem('token')}`
+            }
+        }
+       //'Content-Type': 'application/json; multipart/form-data;charset=utf-8;'
         //'Authorization': 'Bearer mama'
     }
 });
@@ -44,4 +48,4 @@ const api = axios.create({
 //     // console.log('interceptor', error)
 // })
 
-export default api
+export default  API
