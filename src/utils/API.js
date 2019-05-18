@@ -5,8 +5,9 @@ const api = axios.create({
     baseURL: "http://localhost:4000/api/v1/",
     headers: {
         // 'Access-Control-Allow-Headers': 'x-access-token',
-        'Authorization': 'Bearer ' + window.localStorage.getItem('token')
-        //'Authorization': 'Bearer mama' 
+        'Authorization': 'Bearer ' + window.localStorage.getItem('token'),
+       'Content-Type': 'application/json; multipart/form-data;charset=utf-8;'
+        //'Authorization': 'Bearer mama'
     }
 });
 // api.interceptors.request.use(function (config) {
