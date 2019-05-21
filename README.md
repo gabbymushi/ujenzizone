@@ -1,2 +1,2 @@
 # ujenzizone
-This is a pront end part
+This is a front end part
