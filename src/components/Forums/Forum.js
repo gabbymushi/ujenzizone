@@ -15,9 +15,7 @@ import {
   FormGroup,
   Label,
   Input,
-  Row,
-  TabContent,
-  TabPane
+  Row
 } from "reactstrap";
 import API from "../../utils/API";
 class Home extends Component {
