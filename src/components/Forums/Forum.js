@@ -94,7 +94,7 @@ class Home extends Component {
     // };
     const data = new FormData();
     for (var i = 0; i < this.state.file.length; i++) {
-
+      data.append('file', this.state.file[i]);
     }
     data.append('title', this.state.title);
     data.append('body', this.state.body);
