@@ -81,8 +81,8 @@ class Home extends Component {
     this.setState({ body: e.target.value });
   };
   handleUpload = e => {
-    console.log(e.target.files[0])
-    this.setState({ file: e.target.files[0] });
+    console.log(e.target.files)
+    this.setState({ file: e.target.files });
   };
   handleSubmit = e => {
     e.preventDefault();
