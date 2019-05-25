@@ -134,7 +134,7 @@ class Home extends Component {
     this.getThreads(indexOfFirstThread);
   };
   render() {
-    const { currentPage, totalThreads, threadsPerPage } = this.state;
+    const {totalThreads, threadsPerPage } = this.state;
     // Logic for displaying page numbers
     const pageNumbers = [];
     for (let i = 1; i <= Math.ceil(totalThreads / threadsPerPage); i++) {
