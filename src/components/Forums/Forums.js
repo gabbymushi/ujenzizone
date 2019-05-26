@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 //import axios from 'axios';
-import { Dropdown, DropdownToggle, DropdownMenu, DropdownItem, Button, Badge, Card, CardBody, CardHeader, Col, Row, Table, Modal, ModalBody, ModalFooter, ModalHeader, FormGroup, Label, Input } from 'reactstrap';
+import { Dropdown, DropdownToggle, DropdownMenu, DropdownItem, Button, Card, CardBody, CardHeader, Col, Row, Table, Modal, ModalBody, ModalFooter, ModalHeader, FormGroup, Label, Input } from 'reactstrap';
 
 //import SystemParameters from '../../SystemParameters';
 import API from '../../utils/API';

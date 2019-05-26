@@ -15,9 +15,7 @@ import {
   FormGroup,
   Label,
   Input,
-  Row,
-  TabContent,
-  TabPane
+  Row
 } from "reactstrap";
 import API from "../../utils/API";
 class Home extends Component {
@@ -28,7 +26,7 @@ class Home extends Component {
     this.state = {
       title: "",
       body: "",
-      file:"",
+      file: "",
       threads: [],
       activeTab: 1,
       modal: false,
@@ -53,7 +51,7 @@ class Home extends Component {
     }
   }
   componentDidMount() {
-    const { threadsPerPage,currentPage } = this.state;
+    const { threadsPerPage, currentPage } = this.state;
     // console.log("currentPage", e.target.id);
     const indexOfLastThread = currentPage * threadsPerPage;
     const indexOfFirstThread = indexOfLastThread - threadsPerPage;
@@ -64,7 +62,7 @@ class Home extends Component {
     let uri = "threads/" + this.forum_id + "/offset/" + offset;
     API.get(uri)
       .then(response => {
-          // console.log('offese',response)
+        // console.log('offese',response)
         this.setState({
           threads: response.data.threads,
           totalThreads: response.data.totalThreads
@@ -83,8 +81,8 @@ class Home extends Component {
     this.setState({ body: e.target.value });
   };
   handleUpload = e => {
-    console.log(e.target.files[0])
-    this.setState({ file: e.target.files[0] });
+    console.log(e.target.files)
+    this.setState({ file: e.target.files });
   };
   handleSubmit = e => {
     e.preventDefault();
@@ -94,28 +92,30 @@ class Home extends Component {
     //   body: this.state.body,
     //   forum_id: this.forum_id
     // };
-    const data=new FormData();
-    data.append('title',this.state.title);
-    data.append('body',this.state.body);
-    data.append('forum_id',this.forum_id);
-    data.append('file',this.state.file);
-    data.append('member_id',JSON.parse(localStorage.getItem("member")).member_id);
+    const data = new FormData();
+    for (var i = 0; i < this.state.file.length; i++) {
+      data.append('file', this.state.file[i]);
+    }
+    data.append('title', this.state.title);
+    data.append('body', this.state.body);
+    data.append('forum_id', this.forum_id);
+    data.append('member_id', JSON.parse(localStorage.getItem("member")).member_id);
     //console.log("👉 Form data:", data);
     //debugger;
-  //   const config = {     
-  //     headers: { 'content-type': 'multipart/form-data' }
-  // }
+    //   const config = {     
+    //     headers: { 'content-type': 'multipart/form-data' }
+    // }
     API.post("threads/", data)
       .then(response => {
         console.log(response);
         //console.log("👉 Returned data:", response);
         this.setState({
-            title: '',
-            body: '',
-            file:''
+          title: '',
+          body: '',
+          file: ''
 
         });
-        const { threadsPerPage,currentPage } = this.state;
+        const { threadsPerPage, currentPage } = this.state;
         const indexOfLastThread = currentPage * threadsPerPage;
         const indexOfFirstThread = indexOfLastThread - threadsPerPage;
         this.getThreads(indexOfFirstThread);
@@ -136,7 +136,7 @@ class Home extends Component {
     this.getThreads(indexOfFirstThread);
   };
   render() {
-    const { currentPage, totalThreads, threadsPerPage } = this.state;
+    const { totalThreads, threadsPerPage } = this.state;
     // Logic for displaying page numbers
     const pageNumbers = [];
     for (let i = 1; i <= Math.ceil(totalThreads / threadsPerPage); i++) {
@@ -183,7 +183,7 @@ class Home extends Component {
                     <a
                       href={`#/threads/${this.props.match.params.id}/${
                         thread.thread_id
-                      }`}
+                        }`}
                     >
                       {thread.title}.
                     </a>
@@ -195,7 +195,7 @@ class Home extends Component {
                   <a
                     href={`#/threads/${this.props.match.params.id}/${
                       thread.thread_id
-                    }`}
+                      }`}
                   >
                     {" "}
                     more..
