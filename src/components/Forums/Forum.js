@@ -99,7 +99,6 @@ class Home extends Component {
     data.append('title', this.state.title);
     data.append('body', this.state.body);
     data.append('forum_id', this.forum_id);
-    data.append('file', this.state.file);
     data.append('member_id', JSON.parse(localStorage.getItem("member")).member_id);
     //console.log("👉 Form data:", data);
     //debugger;
