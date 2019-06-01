@@ -18,11 +18,11 @@ export default {
       },
       class: ''             // optional class names space delimited list for title item ex: "text-center"
     },
-    {
-      name: 'Forums',
-      url: '/forums',
-      icon: 'icon-pencil',
-    },
+    // {
+    //   name: 'Forums',
+    //   url: '/forums',
+    //   icon: 'icon-pencil',
+    // },
     {
       name: 'Members',
       url: '/theme/typography',
