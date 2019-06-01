@@ -236,7 +236,7 @@ class Thread extends Component {
           onExited={this.onExited}
           key={item.src}
         >
-          <img className="d-block w-100" src={item.src} alt={item.altText} />
+          <img style={{height:'700px',width:'600px'}} className="d-block w-100" src={item.src} alt={item.altText} />
           <CarouselCaption
             captionText={item.caption}
             captionHeader={item.caption}
