@@ -17,7 +17,7 @@ import {
 // sidebar nav config 0673743029
 import navigation from '../../_nav_admin';
 // routes config
-import routes from '../../routes';
+import routes from '../../admin_routes';
 
 const DefaultAside = React.lazy(() => import('./DefaultAside'));
 const DefaultFooter = React.lazy(() => import('./DefaultFooter'));
