@@ -50,7 +50,7 @@ const routes = [
   { path: '/dashboard', name: 'Home', component: Home },
   { path: '/login', name: 'Home', component: Login },
   { path: '/register', name: 'Register', component: Register },
-  // { path: '/forums',exact: true, name: 'Forums', component: Forums },
+  { path: '/forums',exact: true, name: 'Forums', component: Forums },
   { path: '/threads/:id',exact: true, name: 'Threads', component: Forum },
   { path: '/threads/:id/:thread', name: 'Thread', component: Thread },
 
