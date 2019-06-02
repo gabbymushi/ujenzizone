@@ -39,7 +39,7 @@ const Page500 = Loadable({
 });
 function SystemRoutes() {
   // return (<Route path="/" name="Home" component={DefaultLayout} />)
-  if (localStorage.getItem('user_type') === "user") {
+  if (JSON.parse(localStorage.getItem('member')).user_type === "user") {
     return (
       <Route path="/" name="Dashboard" component={DefaultLayout} />
     );
