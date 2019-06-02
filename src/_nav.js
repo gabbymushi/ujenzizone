@@ -23,11 +23,11 @@ export default {
     //   url: '/forums',
     //   icon: 'icon-pencil',
     // },
-    {
-      name: 'Members',
-      url: '/theme/typography',
-      icon: 'icon-user',
-    },
+    // {
+    //   name: 'Members',
+    //   url: '/theme/typography',
+    //   icon: 'icon-user',
+    // },
     // {
     //   title: true,
     //   name: 'Components',
