@@ -43,7 +43,7 @@ function SystemRoutes() {
     return (
       <Route path="/" name="Dashboard" component={DefaultLayout} />
     );
-  } else if (localStorage.getItem('user_type') === "admin") {
+  } else if (JSON.parse(localStorage.getItem('member')).user_type === "admin") {
     return (
       <Route path="/" name="Admin Dashboard"
         component={AdminDefaultLayout} />
