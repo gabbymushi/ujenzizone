@@ -38,21 +38,19 @@ const Page500 = Loadable({
   loading
 });
 function SystemRoutes() {
-  return (<Route path="/" name="Home" component={DefaultLayout} />)
-  // if (localStorage.getItem('user_type')== "member") {
-  //     return (
-  //         <Route path="/" name="Dashboard" component={DefaultLayout}/>
-  //     );
-  // } else if (localStorage.getItem('user_type')== "manager") {
-  //     return (
-
-  //         <Route path="/" name="Management Dashboard"
-  //                component={DefaultLayout1}/>
-
-  //     );
-  // }else{
-  //     return (<Route path="/login" exact component={Login} />)
-  // }
+  // return (<Route path="/" name="Home" component={DefaultLayout} />)
+  if (localStorage.getItem('user_type')=== "user") {
+      return (
+          <Route path="/" name="Dashboard" component={DefaultLayout}/>
+      );
+  } else if (localStorage.getItem('user_type')=== "admin") {
+      return (
+          <Route path="/" name="Admin Dashboard"
+                 component={AdminDefaultLayout}/>
+      );
+  }else{
+      return (<Route path="/login" exact component={Login} />)
+  }
 }
 class App extends Component {
 
