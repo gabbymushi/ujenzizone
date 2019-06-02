@@ -12,6 +12,10 @@ const DefaultLayout = Loadable({
   loader: () => import('./containers/DefaultLayout'),
   loading
 });
+const AdminDefaultLayout = Loadable({
+  loader: () => import('./containers/AdminDefaultLayout'),
+  loading
+});
 
 // Pages
 const Login = Loadable({
