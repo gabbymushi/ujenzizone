@@ -15,7 +15,7 @@ import {
   AppSidebarNav,
 } from '@coreui/react';
 // sidebar nav config 0673743029
-import navigation from '../../_nav';
+import navigation from '../../_nav_admin';
 // routes config
 import routes from '../../routes';
 
