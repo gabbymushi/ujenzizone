@@ -5,7 +5,7 @@ import PropTypes from 'prop-types';
 
 import { AppAsideToggler, AppHeaderDropdown, AppNavbarBrand, AppSidebarToggler } from '@coreui/react';
 //import logo from '../../assets/img/brand/logo.svg'
-import sygnet from '../../assets/img/brand/sygnet.svg'
+// import sygnet from '../../assets/img/brand/sygnet.svg'
 import logo from '../../assets/img/brand/uz.jpeg'
 
 const propTypes = {
@@ -43,7 +43,7 @@ class DefaultHeader extends Component {
           </NavItem>
         </Nav>
         <Nav className="ml-auto" navbar>
-          <NavItem className="d-md-down-none">
+          <NavItem className="d-md-down">
             <NavLink href="#"><i className="icon-bell"></i><Badge pill color="danger">5</Badge></NavLink>
           </NavItem>
           {/* <NavItem className="d-md-down-none">
@@ -74,7 +74,7 @@ class DefaultHeader extends Component {
           </AppHeaderDropdown>
         </Nav>
         <AppAsideToggler className="d-md-down-none" />
-        {/* <AppAsideToggler className="d-lg-none" mobile /> */}
+        <AppAsideToggler className="d-lg-none" mobile />
       </React.Fragment>
     );
   }
