@@ -46,12 +46,6 @@ class DefaultHeader extends Component {
           <NavItem className="d-md-down">
             <NavLink href="#"><i className="icon-bell"></i><Badge pill color="danger">5</Badge></NavLink>
           </NavItem>
-          {/* <NavItem className="d-md-down-none">
-            <NavLink href="#"><i className="icon-list"></i></NavLink>
-          </NavItem> */}
-          {/* <NavItem className="d-md-down-none">
-            <NavLink href="#"><i className="icon-location-pin"></i></NavLink>
-          </NavItem> */}
           <AppHeaderDropdown direction="down">
             <DropdownToggle nav>
               <img src={'../../assets/img/avatars/6.jpg'} className="img-avatar" alt="avator" />
