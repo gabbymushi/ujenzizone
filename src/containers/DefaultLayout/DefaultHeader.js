@@ -43,12 +43,13 @@ class DefaultHeader extends Component {
           </NavItem>
         </Nav>
         <Nav className="ml-auto" navbar>
+       { JSON.parse(localStorage.getItem('member')).user_type === "admin" &&
           <AppHeaderDropdown direction="down">
             <DropdownToggle nav>
             <NavLink href="#"><i className="icon-bell"></i><Badge pill color="danger">5</Badge></NavLink>
             </DropdownToggle>
             <DropdownMenu right style={{ right: 'auto' }}>
-              <DropdownItem header tag="div" className="text-center"><strong>{JSON.parse(localStorage.getItem('member')).first_name}</strong></DropdownItem>
+              <DropdownItem header tag="div" className="text-center"><strong>Notifications</strong></DropdownItem>
               <DropdownItem><i className="fa fa-envelope-o"></i> Messages<Badge color="success">42</Badge></DropdownItem>
               <DropdownItem><i className="fa fa-comments"></i> Comments<Badge color="warning">42</Badge></DropdownItem>
               <DropdownItem header tag="div" className="text-center"><strong>Settings</strong></DropdownItem>
@@ -56,6 +57,7 @@ class DefaultHeader extends Component {
               <DropdownItem><i className="fa fa-wrench"></i> Settings</DropdownItem>
             </DropdownMenu>
           </AppHeaderDropdown>
+          }
           <AppHeaderDropdown direction="down">
             <DropdownToggle nav>
               <img src={'../../assets/img/avatars/6.jpg'} className="img-avatar" alt="avator" />
