@@ -169,7 +169,7 @@ class ReviewThreads extends Component {
                     className="mr-1"
                   >
                     {" "}
-                    <i className="fa fa-check" /> Delete
+                    <i className="fa fa-remove" /> Delete
                   </Button>
                   <Button
                     color="primary"
