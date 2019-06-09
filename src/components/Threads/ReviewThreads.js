@@ -55,10 +55,10 @@ class ReviewThreads extends Component {
     // console.log("currentPage", e.target.id);
     const indexOfLastThread = currentPage * threadsPerPage;
     const indexOfFirstThread = indexOfLastThread - threadsPerPage;
-    this.getThreads(indexOfFirstThread);
+    this.getPendingThreads(indexOfFirstThread);
 
   }
-  getThreads(offset) {
+  getPendingThreads(offset) {
     let uri = "threads/pending/" + offset;
     API.get(uri)
       .then(response => {
