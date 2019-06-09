@@ -30,7 +30,7 @@ export default {
       },
       {
         name: 'Review Threads',
-        url: '/threads/review',
+        url: '/thread/review',
         icon: 'fa fa-check',
       },
       // {
