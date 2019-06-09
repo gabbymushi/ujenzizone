@@ -1,255 +1,299 @@
 import React, { Component } from "react";
 import {
+  PaginationLink,
+  PaginationItem,
+  Pagination,
   Button,
-  Input,
   Card,
   CardBody,
   CardHeader,
-  Carousel,
-  CarouselCaption,
-  CarouselControl,
-  CarouselIndicators,
-  CarouselItem,
   Col,
-  Row,
-  Pagination,
-  PaginationItem,
-  PaginationLink
+  Modal,
+  ModalBody,
+  ModalFooter,
+  ModalHeader,
+  FormGroup,
+  Label,
+  Input,
+  Row
 } from "reactstrap";
-import socketIOClient from "socket.io-client";
 import API from "../../utils/API";
-var socket;
-class ReviewThread extends Component {
+class ReviewThreads extends Component {
   constructor(props) {
     super(props);
-    this.thread_id = this.props.match.params.thread;
-    this.items = [];
+    this.forum_id = this.props.match.params.id;
+    this.toggle = this.toggle.bind(this);
     this.state = {
-      endpoint: "http://localhost:4000/",
-      activeIndex: 0,
+      title: "",
+      body: "",
+      file: "",
       threads: [],
+      activeTab: 1,
+      modal: false,
+      primary: false,
+      dropdownOpen: false,
+      currentPage: 1,
+      threadsPerPage: 2,
+      totalThreads: ""
     };
-    socket = socketIOClient(this.state.endpoint);
-    this.next = this.next.bind(this);
-    this.previous = this.previous.bind(this);
-    this.goToIndex = this.goToIndex.bind(this);
-    this.onExiting = this.onExiting.bind(this);
-    this.onExited = this.onExited.bind(this);
+    this.togglePrimary = this.togglePrimary.bind(this);
   }
-  onExiting() {
-    this.animating = true;
-  }
-
-  onExited() {
-    this.animating = false;
-  }
-
-  next() {
-    if (this.animating) return;
-    const nextIndex =
-      this.state.activeIndex === this.items.length - 1
-        ? 0
-        : this.state.activeIndex + 1;
+  togglePrimary() {
     this.setState({
-      activeIndex: nextIndex
+      primary: !this.state.primary
     });
   }
-
-  previous() {
-    if (this.animating) return;
-    const nextIndex =
-      this.state.activeIndex === 0
-        ? this.items.length - 1
-        : this.state.activeIndex - 1;
-    this.setState({
-      activeIndex: nextIndex
-    });
+  toggle(tab) {
+    if (this.state.activeTab !== tab) {
+      this.setState({
+        activeTab: tab
+      });
+    }
   }
-
-  goToIndex(newIndex) {
-    if (this.animating) return;
-    this.setState({
-      activeIndex: newIndex
-    });
-  }
- 
   componentDidMount() {
-    this.getThread();
-  }
+    const { threadsPerPage, currentPage } = this.state;
+    // console.log("currentPage", e.target.id);
+    const indexOfLastThread = currentPage * threadsPerPage;
+    const indexOfFirstThread = indexOfLastThread - threadsPerPage;
+    this.getThreads(indexOfFirstThread);
 
-  getThread() {
-    let uri = "threads/";
+  }
+  getThreads(offset) {
+    let uri = "threads/" + this.forum_id + "/offset/" + offset;
     API.get(uri)
       .then(response => {
+        // console.log('offese',response)
         this.setState({
-          thread: response.data
+          threads: response.data.threads,
+          totalThreads: response.data.totalThreads
         });
-        // console.log(this.state.thread);
-        response.data.file.forEach(file => {
-          const item = {
-            src: "http://localhost:4000/uploads/" + file.file_name,
-            altText: "Slide 1",
-            caption: "Slide 1"
-          };
-          this.items.push(item);
-        });
-        console.log(response.data)
+        console.log(this.state.threads);
+        return;
       })
       .catch(error => {
         console.log(error);
       });
   }
+  handleTitle = e => {
+    this.setState({ title: e.target.value });
+  };
+  handleBody = e => {
+    this.setState({ body: e.target.value });
+  };
+  handleUpload = e => {
+    console.log(e.target.files)
+    this.setState({ file: e.target.files });
+  };
+  handleSubmit = e => {
+    e.preventDefault();
+    const data = new FormData();
+    for (var i = 0; i < this.state.file.length; i++) {
+      data.append('file', this.state.file[i]);
+    }
+    data.append('title', this.state.title);
+    data.append('body', this.state.body);
+    data.append('forum_id', this.forum_id);
+    data.append('member_id', JSON.parse(localStorage.getItem("member")).member_id);
+    API.post("threads/", data)
+      .then(response => {
+        console.log(response);
+        //console.log("👉 Returned data:", response);
+        this.setState({
+          title: '',
+          body: '',
+          file: ''
+
+        });
+        const { threadsPerPage, currentPage } = this.state;
+        const indexOfLastThread = currentPage * threadsPerPage;
+        const indexOfFirstThread = indexOfLastThread - threadsPerPage;
+        this.getThreads(indexOfFirstThread);
+      })
+      .catch(error => {
+        //console.log(error.request);
+        console.log(`😱 Axios request failed: ${error}`);
+      });
+  };
+  handlePagination = e => {
+    this.setState({
+      currentPage: Number(e.target.id)
+    });
+    const { threadsPerPage } = this.state;
+    // console.log("currentPage", e.target.id);
+    const indexOfLastThread = e.target.id * threadsPerPage;
+    const indexOfFirstThread = indexOfLastThread - threadsPerPage;
+    this.getThreads(indexOfFirstThread);
+  };
   render() {
-    const {
-      activeIndex,
-      comments,
-      currentPage,
-      totalComments,
-      commentsPerPage
-    } = this.state;
+    const { totalThreads, threadsPerPage } = this.state;
     // Logic for displaying page numbers
     const pageNumbers = [];
-    for (let i = 1; i <= Math.ceil(totalComments / commentsPerPage); i++) {
+    for (let i = 1; i <= Math.ceil(totalThreads / threadsPerPage); i++) {
       pageNumbers.push(i);
     }
-    const slides2 = this.items.map(item => {
-      return (
-        <CarouselItem
-          onExiting={this.onExiting}
-          onExited={this.onExited}
-          key={item.src}
-        >
-          <img style={{height:'700px',width:'600px'}} className="d-block w-100" src={item.src} alt={item.altText} />
-          <CarouselCaption
-            captionText={item.caption}
-            captionHeader={item.caption}
-          />
-        </CarouselItem>
-      );
-    });
-
     return (
       <div className="animated fadeIn">
         <Row>
-          <Col xs="12" xl="8">
+          <Col sm="12" xl="12">
             <Card>
               <CardHeader>
-                {/* <i className="fa fa-align-justify" /> */}
+                <i className="fa fa-align-justify" />
+                <small className="text-muted"> </small>
                 <strong>
-                  {" "}
-                  {typeof this.state.thread.member!=="undefined" ? (
-                    <p>
-                      {" "}
-                      Posted by {this.state.thread.member.first_name}:{" "}
-                      {this.state.thread.title}
-                    </p>
-                  ) : (
-                    <p>Loading..</p>
-                  )}
+                  {this.state.threads[0] &&
+                    this.state.threads[0].forum.forum_name}
+                  .
                 </strong>
+                <div className="card-header-actions">
+                  <Button
+                    color="primary"
+                    onClick={this.togglePrimary}
+                    className="mr-1"
+                  >
+                    {" "}
+                    <i className="fa fa-comment" /> Post Topic
+                  </Button>
+                </div>
+                <small> </small>
               </CardHeader>
-              <CardBody>
-                <Carousel
-                  activeIndex={activeIndex}
-                  next={this.next}
-                  previous={this.previous}
-                >
-                  <CarouselIndicators
-                    items={this.items}
-                    activeIndex={activeIndex}
-                    onClickHandler={this.goToIndex}
-                  />
-                  {slides2}
-                  <CarouselControl
-                    direction="prev"
-                    directionText="Previous"
-                    onClickHandler={this.previous}
-                  />
-                  <CarouselControl
-                    direction="next"
-                    directionText="Next"
-                    onClickHandler={this.next}
-                  />
-                </Carousel>
-                {typeof this.state.thread.body!=="undefined" ? (
-                  <p> {this.state.thread.body}</p>
-                ) : (
-                  <p>Loading..</p>
-                )}
-                {comments.length > 0 ? (
-                  // <p> {this.state.comments[0].comment} </p>
-                  comments.map((comment, index) => (
-                    <Card key={index}>
-                      <CardHeader>
-                        <i className="fa fa-comment" />
-                        <strong>
-                          <a
-                            href={`#/threads/${this.props.match.params.id}/${
-                              comment.member_id
-                            }`}
-                          >
-                            {comment.member.first_name}.
-                          </a>
-                        </strong>
-                        <small> </small>
-                      </CardHeader>
-                      <CardBody>{comment.comment}</CardBody>
-                    </Card>
-                  ))
-                ) : (
-                  <p>No comments yet</p>
-                )}{" "}
-                <Pagination>
-                  <PaginationItem key="prev">
+              {/* <CardBody>
+              Jisnsi ya kuzuia nyumba isipauke rangi
+              </CardBody> */}
+            </Card>
+          </Col>
+        </Row>
+        <Row>
+          <Col sm="12" xl="9">
+            {this.state.threads.map((thread, index) => (
+              <Card key={index}>
+                <CardHeader>
+                  <i className="fa fa-comment" />
+                  <strong>
+                    <a
+                      href={`#/threads/${this.props.match.params.id}/${
+                        thread.thread_id
+                        }`}
+                    >
+                      {thread.title}.
+                    </a>
+                  </strong>
+                  <small> </small>
+                </CardHeader>
+                <CardBody>
+                  {thread.body}{" "}
+                  <a
+                    href={`#/threads/${this.props.match.params.id}/${
+                      thread.thread_id
+                      }`}
+                  >
+                    {" "}
+                    more..
+                  </a>
+                </CardBody>
+              </Card>
+            ))}
+            <Pagination>
+              <PaginationItem key="prev">
+                <PaginationLink
+                  //   id={currentPage - 1}
+                  onClick={this.handlePagination}
+                  previous
+                  tag="button"
+                />
+              </PaginationItem>
+              {pageNumbers.map(number => {
+                return (
+                  <PaginationItem key={number}>
                     <PaginationLink
-                      id={currentPage - 1}
-                      onClick={this.handlePagination}
-                      previous
                       tag="button"
-                    />
-                  </PaginationItem>
-                  {pageNumbers.map(number => {
-                    return (
-                      <PaginationItem key={number}>
-                        <PaginationLink
-                          tag="button"
-                          id={number}
-                          onClick={this.handlePagination}
-                        >
-                          {number}
-                        </PaginationLink>
-                      </PaginationItem>
-                    );
-                  })}
-                  <PaginationItem key="next">
-                    <PaginationLink
-                      id={currentPage + 1}
+                      id={number}
                       onClick={this.handlePagination}
-                      next
-                      tag="button"
-                    />
+                    >
+                      {number}
+                    </PaginationLink>
                   </PaginationItem>
-                </Pagination>
+                );
+              })}
+              <PaginationItem key="next">
+                <PaginationLink
+                  //   id={currentPage + 1}
+                  onClick={this.handlePagination}
+                  next
+                  tag="button"
+                />
+              </PaginationItem>
+            </Pagination>
+          </Col>
+        </Row>
+        <Modal
+          isOpen={this.state.primary}
+          toggle={this.togglePrimary}
+          className={"modal-primary " + this.props.className}
+        >
+          <ModalHeader toggle={this.togglePrimary}>Post Topic</ModalHeader>
+          <ModalBody>
+            <FormGroup row>
+              <Col md="3">
+                <Label htmlFor="text-input">Title</Label>
+              </Col>
+              <Col xs="12" md="9">
                 <Input
-                  onChange={this.handleComment}
-                  value={this.state.comment}
+                  onChange={this.handleTitle}
+                  value={this.state.title}
+                  type="text"
+                  id="text-input"
+                  name="ledger"
+                  placeholder="Title"
+                  required
+                />
+                {/*<FormText color="muted">This is a help text</FormText>*/}
+              </Col>
+            </FormGroup>
+            <FormGroup row>
+              <Col md="3">
+                <Label htmlFor="textarea-input">Body</Label>
+              </Col>
+              <Col xs="12" md="9">
+                <Input
+                  onChange={this.handleBody}
+                  value={this.state.body}
                   type="textarea"
                   name="textarea-input"
                   id="textarea-input"
                   rows="9"
-                  placeholder="Write your comment..."
+                  placeholder="Write your topic..."
                 />
-                <Button color="primary" onClick={this.handleSubmit}>
-                  {" "}
-                  Comment{" "}
-                </Button>{" "}
-              </CardBody>{" "}
-            </Card>{" "}
-          </Col>{" "}
-        </Row>{" "}
+              </Col>
+            </FormGroup>
+            <FormGroup row>
+              <Col md="3">
+                <Label htmlFor="text-input">Upload</Label>
+              </Col>
+              <Col xs="12" md="9">
+                <Input
+                  multiple
+                  onChange={this.handleUpload}
+                  type="file"
+                  id="text-input"
+                  name="file"
+                  required
+                />
+                {/*<FormText color="muted">This is a help text</FormText>*/}
+              </Col>
+            </FormGroup>
+          </ModalBody>
+          <ModalFooter>
+            <Button color="primary" onClick={this.handleSubmit}>
+              Save
+            </Button>{" "}
+            <Button color="secondary" onClick={this.togglePrimary}>
+              Cancel
+            </Button>
+          </ModalFooter>
+        </Modal>
       </div>
     );
   }
 }
 
-export default ReviewThread;
+export default ReviewThreads;
