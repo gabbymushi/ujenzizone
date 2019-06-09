@@ -59,7 +59,7 @@ class ReviewThreads extends Component {
 
   }
   getThreads(offset) {
-    let uri = "threads/" + this.forum_id + "/offset/" + offset;
+    let uri = "threads/pending/" + offset;
     API.get(uri)
       .then(response => {
         // console.log('offese',response)
