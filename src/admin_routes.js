@@ -54,7 +54,7 @@ const routes = [
   { path: '/forums',exact: true, name: 'Forums', component: Forums },
   { path: '/threads/:id',exact: true, name: 'Threads', component: Forum },
   { path: '/threads/:id/:thread', name: 'Thread', component: Thread },
-  { path: '/threads/review', name: 'Thread', component: ReviewThreads },
+  { path: '/thread/review', name: 'Thread', component: ReviewThreads },
 
 
 
