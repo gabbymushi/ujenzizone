@@ -18,7 +18,7 @@ import {
   Row
 } from "reactstrap";
 import API from "../../utils/API";
-class Home extends Component {
+class ReviewThreads extends Component {
   constructor(props) {
     super(props);
     this.forum_id = this.props.match.params.id;
@@ -296,4 +296,4 @@ class Home extends Component {
   }
 }
 
-export default Home;
+export default ReviewThreads;

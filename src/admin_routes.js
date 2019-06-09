@@ -23,7 +23,7 @@ const ButtonDropdowns = React.lazy(() => import('./views/Buttons/ButtonDropdowns
 const ButtonGroups = React.lazy(() => import('./views/Buttons/ButtonGroups'));
 const Buttons = React.lazy(() => import('./views/Buttons/Buttons'));
 const Charts = React.lazy(() => import('./views/Charts'));
-const Dashboard = React.lazy(() => import('./views/Dashboard'));
+// const Dashboard = React.lazy(() => import('./views/Dashboard'));
 const CoreUIIcons = React.lazy(() => import('./views/Icons/CoreUIIcons'));
 const Flags = React.lazy(() => import('./views/Icons/Flags'));
 const FontAwesome = React.lazy(() => import('./views/Icons/FontAwesome'));
@@ -43,6 +43,7 @@ const Register = React.lazy(() => import('./components/Members/Register'));
 const Forums = React.lazy(() => import('./components/Forums/Forums'));
 const Forum = React.lazy(() => import('./components/Forums/Forum'));
 const Thread = React.lazy(() => import('./components/Threads/Thread'));
+const ReviewThreads = React.lazy(() => import('./components/Threads/ReviewThreads'));
 
 // https://github.com/ReactTraining/react-router/tree/master/packages/react-router-config
 const routes = [
@@ -53,6 +54,7 @@ const routes = [
   { path: '/forums',exact: true, name: 'Forums', component: Forums },
   { path: '/threads/:id',exact: true, name: 'Threads', component: Forum },
   { path: '/threads/:id/:thread', name: 'Thread', component: Thread },
+  { path: '/thread/review', name: 'Thread', component: ReviewThreads },
 
 
 
