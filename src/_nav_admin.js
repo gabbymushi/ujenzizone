@@ -31,7 +31,7 @@ export default {
       {
         name: 'Review Threads',
         url: '/threads/review',
-        icon: 'icon-user',
+        icon: 'fa fa-check',
       },
       // {
       //   title: true,
