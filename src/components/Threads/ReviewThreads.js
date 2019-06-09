@@ -137,14 +137,7 @@ class ReviewThreads extends Component {
                  Pending Threads
                 </strong>
                 <div className="card-header-actions">
-                  <Button
-                    color="primary"
-                    onClick={this.togglePrimary}
-                    className="mr-1"
-                  >
-                    {" "}
-                    <i className="fa fa-comment" /> Approve
-                  </Button>
+           
                 </div>
                 <small> </small>
               </CardHeader>
@@ -169,6 +162,17 @@ class ReviewThreads extends Component {
                       {thread.title}.
                     </a>
                   </strong>
+                  <div className="card-header-actions">
+           
+                  <Button
+                    color="primary"
+                    onClick={this.togglePrimary}
+                    className="mr-1"
+                  >
+                    {" "}
+                    <i className="fa fa-check" /> Approve
+                  </Button>
+                </div>
                   <small> </small>
                 </CardHeader>
                 <CardBody>
