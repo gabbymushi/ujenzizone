@@ -163,7 +163,14 @@ class ReviewThreads extends Component {
                     </a>
                   </strong>
                   <div className="card-header-actions">
-           
+                  <Button
+                    color="primary"
+                    onClick={this.togglePrimary}
+                    className="mr-1"
+                  >
+                    {" "}
+                    <i className="fa fa-check" /> Delete
+                  </Button>
                   <Button
                     color="primary"
                     onClick={this.togglePrimary}
