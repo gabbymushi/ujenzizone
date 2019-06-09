@@ -143,7 +143,7 @@ class ReviewThreads extends Component {
                     className="mr-1"
                   >
                     {" "}
-                    <i className="fa fa-comment" /> Post Topic
+                    <i className="fa fa-comment" /> Approve
                   </Button>
                 </div>
                 <small> </small>
