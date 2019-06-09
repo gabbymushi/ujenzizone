@@ -28,6 +28,11 @@ export default {
         url: '/theme/typography',
         icon: 'icon-user',
       },
+      {
+        name: 'Review Threads',
+        url: '/threads/review',
+        icon: 'icon-user',
+      },
       // {
       //   title: true,
       //   name: 'Components',

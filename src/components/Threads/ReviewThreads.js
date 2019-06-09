@@ -102,19 +102,10 @@ class ReviewThread extends Component {
       member_id: JSON.parse(localStorage.getItem("member")).member_id
     };
     socket.emit("saveComment", comment);
-    // API.post("comments/", comment)
-    //   .then(response => {
-    //     // console.log(response);
-    //     console.log("👉 Returned data:", response);
     this.setState({
       comment: ""
     });
-    //     this.getComments();
-    //   })
-    //   .catch(error => {
-    //     //console.log(error.request);
-    //     console.log(`😱 Axios request failed: ${error}`);
-    //   });
+  
   };
   getComments = data => {
     console.log(data);
@@ -149,19 +140,6 @@ class ReviewThread extends Component {
     socket.off("getComments");
     socket.off("changeData");
   }
-  // getComments() {
-  //   let uri = "comments/" + this.thread_id;
-  //   API.get(uri)
-  //     .then(response => {
-  //       this.setState({
-  //         comments: response.data
-  //       });
-  //       console.log(this.state.comments);
-  //     })
-  //     .catch(error => {
-  //       console.log(error);
-  //     });
-  // }
   getThread() {
     let uri = "threads/" + this.thread_id;
     API.get(uri)
@@ -192,18 +170,6 @@ class ReviewThread extends Component {
       totalComments,
       commentsPerPage
     } = this.state;
-
-    // const slides = items.map((item) => {
-    //   return (
-    //     <CarouselItem onExiting={this.onExiting} onExited={this.onExited} key={item.src}>
-    //       <img className="d-block w-100" src={item.src} alt={item.altText} />
-    //     </CarouselItem>
-    //   );
-    // });
-    // Logic for displaying todos
-    // const indexOfLastComment = currentPage * commentsPerPage;
-    // const indexOfFirstComment = indexOfLastComment - commentsPerPage;
-    //const currentComments = comments.slice(indexOfFirstComment, indexOfLastComment);
     // Logic for displaying page numbers
     const pageNumbers = [];
     for (let i = 1; i <= Math.ceil(totalComments / commentsPerPage); i++) {
@@ -228,23 +194,6 @@ class ReviewThread extends Component {
     return (
       <div className="animated fadeIn">
         <Row>
-          {/* <Col xs="12" xl="6">
-            <Card>
-              <CardHeader>
-                <i className="fa fa-align-justify"></i><strong>Carousel</strong>
-                <div className="card-header-actions">
-                  <a href="https://reactstrap.github.io/components/carousel/" rel="noreferrer noopener" target="_blank" className="card-header-action">
-                    <small className="text-muted">docs</small>
-                  </a>
-                </div>
-              </CardHeader>
-              <CardBody>
-                <Carousel activeIndex={activeIndex} next={this.next} previous={this.previous} ride="carousel">
-                  {slides}
-                </Carousel>
-              </CardBody>
-            </Card>
-          </Col> */}
           <Col xs="12" xl="8">
             <Card>
               <CardHeader>
@@ -361,17 +310,6 @@ class ReviewThread extends Component {
             </Card>{" "}
           </Col>{" "}
         </Row>{" "}
-        {/* <Row>
-                  <Col xs="12" md="8">
-                    <Input
-                      onChange={this.handleBody}
-                      value={this.state.body}
-                      type="textarea"
-                      name="textarea-input"
-                      id="textarea-input" rows="9"
-                      placeholder="Write your comment..." />
-                  </Col>
-                </Row> */}{" "}
       </div>
     );
   }
