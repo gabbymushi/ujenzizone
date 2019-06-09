@@ -27,9 +27,7 @@ class ReviewThread extends Component {
     this.state = {
       endpoint: "http://localhost:4000/",
       activeIndex: 0,
-      thread: '',
-      comments: [],
-      comment: "",
+      threads: [],
       currentPage: 1,
       commentsPerPage: 2,
       totalComments: ""
@@ -77,71 +75,13 @@ class ReviewThread extends Component {
       activeIndex: newIndex
     });
   }
-
-  handleComment = e => {
-    this.setState({ comment: e.target.value });
-  };
-  handlePagination = e => {
-    this.setState({
-      currentPage: Number(e.target.id)
-    });
-    const { commentsPerPage } = this.state;
-    console.log("currentPage", e.target.id);
-    const indexOfLastComment = e.target.id * commentsPerPage;
-    const indexOfFirstComment = indexOfLastComment - commentsPerPage;
-    socket.emit("initial_comments", {
-      thread_id: this.thread_id,
-      offset: indexOfFirstComment
-    });
-  };
-  handleSubmit = e => {
-    e.preventDefault();
-    let comment = {
-      comment: this.state.comment,
-      thread_id: this.thread_id,
-      member_id: JSON.parse(localStorage.getItem("member")).member_id
-    };
-    socket.emit("saveComment", comment);
-    this.setState({
-      comment: ""
-    });
-  
-  };
-  getComments = data => {
-    console.log(data);
-    this.setState({
-      comments: data.comments,
-      totalComments: data.totalComments
-    });
-  };
-  changeData = () => {
-    const { currentPage, commentsPerPage } = this.state;
-    const indexOfLastComment = currentPage * commentsPerPage;
-    const indexOfFirstComment = indexOfLastComment - commentsPerPage;
-    socket.emit("initial_comments", {
-      thread_id: this.thread_id,
-      offset: indexOfFirstComment
-    });
-  };
+ 
   componentDidMount() {
     this.getThread();
-    // this.getComments();
-    const { currentPage, commentsPerPage } = this.state;
-    const indexOfLastComment = currentPage * commentsPerPage;
-    const indexOfFirstComment = indexOfLastComment - commentsPerPage;
-    socket.emit("initial_comments", {
-      thread_id: this.thread_id,
-      offset: indexOfFirstComment
-    });
-    socket.on("getComments", this.getComments);
-    socket.on("changeData", this.changeData);
   }
-  componentWillUnmount() {
-    socket.off("getComments");
-    socket.off("changeData");
-  }
+
   getThread() {
-    let uri = "threads/" + this.thread_id;
+    let uri = "threads/";
     API.get(uri)
       .then(response => {
         this.setState({
