@@ -77,13 +77,7 @@ class ReviewThreads extends Component {
   handleTitle = e => {
     this.setState({ title: e.target.value });
   };
-  handleBody = e => {
-    this.setState({ body: e.target.value });
-  };
-  handleUpload = e => {
-    console.log(e.target.files)
-    this.setState({ file: e.target.files });
-  };
+
   handleSubmit = e => {
     e.preventDefault();
     const data = new FormData();
@@ -140,9 +134,7 @@ class ReviewThreads extends Component {
                 <i className="fa fa-align-justify" />
                 <small className="text-muted"> </small>
                 <strong>
-                  {this.state.threads[0] &&
-                    this.state.threads[0].forum.forum_name}
-                  .
+                 Pending Threads
                 </strong>
                 <div className="card-header-actions">
                   <Button
@@ -225,72 +217,6 @@ class ReviewThreads extends Component {
             </Pagination>
           </Col>
         </Row>
-        <Modal
-          isOpen={this.state.primary}
-          toggle={this.togglePrimary}
-          className={"modal-primary " + this.props.className}
-        >
-          <ModalHeader toggle={this.togglePrimary}>Post Topic</ModalHeader>
-          <ModalBody>
-            <FormGroup row>
-              <Col md="3">
-                <Label htmlFor="text-input">Title</Label>
-              </Col>
-              <Col xs="12" md="9">
-                <Input
-                  onChange={this.handleTitle}
-                  value={this.state.title}
-                  type="text"
-                  id="text-input"
-                  name="ledger"
-                  placeholder="Title"
-                  required
-                />
-                {/*<FormText color="muted">This is a help text</FormText>*/}
-              </Col>
-            </FormGroup>
-            <FormGroup row>
-              <Col md="3">
-                <Label htmlFor="textarea-input">Body</Label>
-              </Col>
-              <Col xs="12" md="9">
-                <Input
-                  onChange={this.handleBody}
-                  value={this.state.body}
-                  type="textarea"
-                  name="textarea-input"
-                  id="textarea-input"
-                  rows="9"
-                  placeholder="Write your topic..."
-                />
-              </Col>
-            </FormGroup>
-            <FormGroup row>
-              <Col md="3">
-                <Label htmlFor="text-input">Upload</Label>
-              </Col>
-              <Col xs="12" md="9">
-                <Input
-                  multiple
-                  onChange={this.handleUpload}
-                  type="file"
-                  id="text-input"
-                  name="file"
-                  required
-                />
-                {/*<FormText color="muted">This is a help text</FormText>*/}
-              </Col>
-            </FormGroup>
-          </ModalBody>
-          <ModalFooter>
-            <Button color="primary" onClick={this.handleSubmit}>
-              Save
-            </Button>{" "}
-            <Button color="secondary" onClick={this.togglePrimary}>
-              Cancel
-            </Button>
-          </ModalFooter>
-        </Modal>
       </div>
     );
   }
