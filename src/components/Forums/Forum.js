@@ -86,12 +86,6 @@ class Home extends Component {
   };
   handleSubmit = e => {
     e.preventDefault();
-    //let forum_id = this.props.match.params.id;
-    // let thread = {
-    //   title: this.state.title,
-    //   body: this.state.body,
-    //   forum_id: this.forum_id
-    // };
     const data = new FormData();
     for (var i = 0; i < this.state.file.length; i++) {
       data.append('file', this.state.file[i]);
@@ -100,11 +94,6 @@ class Home extends Component {
     data.append('body', this.state.body);
     data.append('forum_id', this.forum_id);
     data.append('member_id', JSON.parse(localStorage.getItem("member")).member_id);
-    //console.log("👉 Form data:", data);
-    //debugger;
-    //   const config = {     
-    //     headers: { 'content-type': 'multipart/form-data' }
-    // }
     API.post("threads/", data)
       .then(response => {
         console.log(response);
