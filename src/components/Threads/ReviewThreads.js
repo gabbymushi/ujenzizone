@@ -28,9 +28,6 @@ class ReviewThread extends Component {
       endpoint: "http://localhost:4000/",
       activeIndex: 0,
       threads: [],
-      currentPage: 1,
-      commentsPerPage: 2,
-      totalComments: ""
     };
     socket = socketIOClient(this.state.endpoint);
     this.next = this.next.bind(this);
