@@ -118,8 +118,22 @@ class ReviewThreads extends Component {
     const indexOfFirstThread = indexOfLastThread - threadsPerPage;
     this.getThreads(indexOfFirstThread);
   };
-  approve = e=> {
-    alert(e.target.value);
+  approve = e => {
+    const thread_id = e.target.value;
+    API.patch('threads/' + thread_id).then((response) => {
+      // // console.log(response);
+      // console.log('👉 Returned data:', response);
+      // this.setState({
+      //     forum_name: '',
+      //     description: ''
+
+      // });
+      // this.getForums();
+    }).catch((error) => {
+      //console.log(error.request);
+      console.log(`😱 Axios request failed: ${error}`);
+    });
+
   };
   render() {
     const { totalThreads, threadsPerPage } = this.state;
@@ -137,10 +151,10 @@ class ReviewThreads extends Component {
                 <i className="fa fa-align-justify" />
                 <small className="text-muted"> </small>
                 <strong>
-                 Pending Threads
+                  Pending Threads
                 </strong>
                 <div className="card-header-actions">
-           
+
                 </div>
                 <small> </small>
               </CardHeader>
@@ -166,25 +180,25 @@ class ReviewThreads extends Component {
                     </a>
                   </strong>
                   <div className="card-header-actions">
-                  <Button
-                    color="danger"
+                    <Button
+                      color="danger"
 
-                    onClick={this.togglePrimary}
-                    className="mr-1"
-                  >
-                    {" "}
-                    <i className="fa fa-remove" /> Delete
+                      onClick={this.togglePrimary}
+                      className="mr-1"
+                    >
+                      {" "}
+                      <i className="fa fa-remove" /> Delete
                   </Button>
-                  <Button
-                    color="success"
-                    value={thread.thread_id}
-                    onClick={this.approve}
-                    className="mr-1"
-                  >
-                    {" "}
-                    <i className="fa fa-check" /> Approve
+                    <Button
+                      color="success"
+                      value={thread.thread_id}
+                      onClick={this.approve}
+                      className="mr-1"
+                    >
+                      {" "}
+                      <i className="fa fa-check" /> Approve
                   </Button>
-                </div>
+                  </div>
                   <small> </small>
                 </CardHeader>
                 <CardBody>
