@@ -120,6 +120,20 @@ class ReviewThreads extends Component {
   };
   approve = e=> {
     alert(e.target.value);
+    API.post('thread/').then((response) => {
+      // // console.log(response);
+      // console.log('👉 Returned data:', response);
+      // this.setState({
+      //     forum_name: '',
+      //     description: ''
+
+      // });
+      // this.getForums();
+  }).catch((error) => {
+      //console.log(error.request);
+      console.log(`😱 Axios request failed: ${error}`);
+  });
+
   };
   render() {
     const { totalThreads, threadsPerPage } = this.state;
