@@ -118,15 +118,8 @@ class ReviewThreads extends Component {
     const indexOfFirstThread = indexOfLastThread - threadsPerPage;
     this.getThreads(indexOfFirstThread);
   };
-  approve = e => {
-    this.setState({
-      currentPage: Number(e.target.id)
-    });
-    const { threadsPerPage } = this.state;
-    // console.log("currentPage", e.target.id);
-    const indexOfLastThread = e.target.id * threadsPerPage;
-    const indexOfFirstThread = indexOfLastThread - threadsPerPage;
-    this.getThreads(indexOfFirstThread);
+  approve = e=> {
+    alert(e.target.value);
   };
   render() {
     const { totalThreads, threadsPerPage } = this.state;
@@ -184,7 +177,8 @@ class ReviewThreads extends Component {
                   </Button>
                   <Button
                     color="success"
-                    onClick={this.togglePrimary}
+                    value={thread.thread_id}
+                    onClick={this.approve}
                     className="mr-1"
                   >
                     {" "}
